@@ -327,81 +327,124 @@
     .section-sub.light { color: rgba(240,232,220,0.6); }
 
     /* ═══════════════════════════════════
-       SIGNATURE DISHES
+       SIGNATURE DISHES — MAGAZINE GRID
     ═══════════════════════════════════ */
     .signature {
       padding: 7rem 2rem;
-      background: var(--cream);
+      background: var(--dark);
     }
     .signature-inner { max-width: 1180px; margin: 0 auto; }
-    .signature-head { text-align: center; margin-bottom: 4rem; }
+    .signature-head { text-align: center; margin-bottom: 3.5rem; }
+    .signature-head .section-heading { color: var(--cream); }
+    .signature-head .em { color: var(--gold-lt); }
 
     .dishes-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.25rem;
+      grid-template-columns: 1.15fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 6px;
+      height: 620px;
     }
 
-    .dish-card {
-      background: var(--dark-warm);
-      border-radius: 6px; overflow: hidden;
+    /* Each panel is full-bleed image with overlay text */
+    .dish-panel {
       position: relative;
+      overflow: hidden;
+      border-radius: 4px;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
     }
-    .dish-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+    .dish-panel:first-child {
+      grid-row: 1 / 3;
+    }
 
-    .dish-card-img {
-      height: 220px; overflow: hidden; position: relative;
-    }
-    .dish-card-img img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 0.5s;
-      filter: brightness(0.88);
-    }
-    .dish-card:hover .dish-card-img img { transform: scale(1.06); filter: brightness(0.95); }
-
-    .dish-card-img-placeholder {
-      width: 100%; height: 100%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 3.5rem;
-    }
-    .dish-bg-1 { background: linear-gradient(135deg, #3a1010 0%, #7a2020 100%); }
-    .dish-bg-2 { background: linear-gradient(135deg, #1a2e10 0%, #3a6020 100%); }
-    .dish-bg-3 { background: linear-gradient(135deg, #2a1a08 0%, #6a4020 100%); }
-    .dish-bg-4 { background: linear-gradient(135deg, #10101a 0%, #302050 100%); }
-
-    .dish-card-img-overlay {
+    .dish-panel-bg {
       position: absolute; inset: 0;
-      background: linear-gradient(180deg, transparent 50%, rgba(14,8,3,0.7) 100%);
+      background-size: cover; background-position: center;
+      transition: transform 0.6s ease, filter 0.4s;
+      filter: brightness(0.72);
+    }
+    .dish-panel:hover .dish-panel-bg {
+      transform: scale(1.06);
+      filter: brightness(0.85);
     }
 
-    .dish-card-body { padding: 1.25rem 1.25rem 1.5rem; }
-    .dish-card-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem; font-weight: 600; color: var(--cream);
-      margin-bottom: 0.3rem;
+    /* gradient overlays — bottom-weighted for text, lighter at top */
+    .dish-panel-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(14,8,3,0.08) 0%,
+        rgba(14,8,3,0.12) 40%,
+        rgba(14,8,3,0.72) 75%,
+        rgba(14,8,3,0.88) 100%
+      );
     }
-    .dish-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 0.85rem; }
-    .dish-card-footer { display: flex; align-items: center; justify-content: space-between; }
-    .dish-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
-    .dish-order-link {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(212,150,83,0.6); transition: color 0.2s;
-    }
-    .dish-card:hover .dish-order-link { color: var(--gold-lt); }
 
-    .dish-card.featured {
-      grid-column: span 2;
+    /* top-left promo badge */
+    .dish-promo {
+      position: absolute; top: 1.25rem; left: 1.25rem; z-index: 3;
+      background: var(--red-mid);
+      color: var(--cream);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 0.8rem; border-radius: 3px;
+      line-height: 1.4; text-align: center;
     }
-    .dish-card.featured .dish-card-img { height: 280px; }
-    .dish-card.featured .dish-card-name { font-size: 1.35rem; }
-    .dish-badge {
-      position: absolute; top: 1rem; left: 1rem; z-index: 2;
-      background: var(--gold); color: var(--dark);
-      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.3rem 0.7rem; border-radius: 2px;
+    .dish-promo span { display: block; font-size: 0.9rem; }
+
+    .dish-badge-sig {
+      position: absolute; top: 1.25rem; left: 1.25rem; z-index: 3;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; border-radius: 2px;
     }
+
+    /* bottom content */
+    .dish-panel-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      z-index: 2; padding: 1.75rem 1.75rem 1.75rem;
+    }
+
+    .dish-panel-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-weight: 400;
+      font-size: 1.75rem; color: var(--cream);
+      line-height: 1.1; margin-bottom: 0.4rem;
+    }
+    .dish-panel:first-child .dish-panel-name { font-size: 2.4rem; }
+
+    .dish-panel-desc {
+      font-size: 0.8rem; color: rgba(240,232,220,0.7);
+      line-height: 1.55; margin-bottom: 1rem;
+      max-width: 360px;
+    }
+    .dish-panel-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .dish-price {
+      font-size: 1.1rem; font-weight: 700; color: var(--gold-lt);
+    }
+    .dish-cta {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--dark); background: var(--gold);
+      padding: 0.4rem 1rem; border-radius: 3px;
+      transition: background 0.2s;
+    }
+    .dish-panel:hover .dish-cta { background: var(--gold-lt); }
+
+    /* placeholder backgrounds */
+    .dish-bg-1 { background: linear-gradient(160deg, #2a0808 0%, #6a1818 40%, #3a1a08 100%); }
+    .dish-bg-2 { background: linear-gradient(160deg, #0e1a08 0%, #2a5018 60%, #1a2808 100%); }
+    .dish-bg-3 { background: linear-gradient(160deg, #1a1008 0%, #4a2a10 60%, #2a1808 100%); }
+    .dish-bg-4 { background: linear-gradient(160deg, #08101a 0%, #183050 60%, #101820 100%); }
+
+    .dish-panel-emoji {
+      position: absolute; inset: 0; z-index: 1;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; opacity: 0.3;
+      pointer-events: none;
+    }
+    .dish-panel:first-child .dish-panel-emoji { font-size: 8rem; }
 
     /* ═══════════════════════════════════
        ABOUT / PHILOSOPHY SPLIT
@@ -816,7 +859,9 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 1024px) {
-      .dishes-grid { grid-template-columns: repeat(2, 1fr); }
+      .dishes-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+      .dish-panel:first-child { grid-row: auto; }
+      .dish-panel { height: 320px; }
       .dish-card.featured { grid-column: span 1; }
       .drinks-grid { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -836,7 +881,9 @@
       .location-content { padding: 3rem 2rem; }
 
       .drinks-grid { grid-template-columns: 1fr; }
-      .dishes-grid { grid-template-columns: 1fr 1fr; }
+      .dishes-grid { grid-template-columns: 1fr; grid-template-rows: auto; height: auto; }
+      .dish-panel:first-child { grid-row: auto; }
+      .dish-panel { height: 380px; }
 
       .testimonials-grid { grid-template-columns: 1fr; }
 
@@ -968,7 +1015,7 @@
     </div>
   </section>
 
-  <!-- SIGNATURE DISHES -->
+  <!-- SIGNATURE DISHES — MAGAZINE GRID -->
   <section class="signature">
     <div class="signature-inner">
       <div class="signature-head">
@@ -980,70 +1027,58 @@
       </div>
 
       <div class="dishes-grid">
-        <!-- Featured: Molcajete -->
-        <div class="dish-card featured">
-          <div class="dish-card-img dish-bg-1">
-            <div class="dish-badge">Chef's Signature</div>
-            <div class="dish-card-img-placeholder">🫕</div>
-            <div class="dish-card-img-overlay"></div>
-          </div>
-          <div class="dish-card-body">
-            <div class="dish-card-name">Molcajete</div>
-            <div class="dish-card-desc">Volcanic stone bowl filled with grilled steak, chicken & shrimp simmering in house ranchera sauce with cactus, jalapeños & queso fresco. Served tableside, still sizzling.</div>
-            <div class="dish-card-footer">
+
+        <!-- LEFT — Large: Molcajete -->
+        <div class="dish-panel">
+          <div class="dish-panel-bg dish-bg-1"
+               style="background-image:url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Top-Slider.jpg')"></div>
+          <div class="dish-panel-overlay"></div>
+          <div class="dish-badge-sig">⭐ Chef's Signature</div>
+          <div class="dish-panel-emoji">🫕</div>
+          <div class="dish-panel-content">
+            <div class="dish-panel-name">Molcajete</div>
+            <div class="dish-panel-desc">Grilled steak, chicken & shrimp in a volcanic stone bowl, simmering in rich ranchera sauce — served tableside, still sizzling.</div>
+            <div class="dish-panel-footer">
               <span class="dish-price">$28.99</span>
-              <span class="dish-order-link">Order Now</span>
+              <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="dish-cta">Order Now</a>
             </div>
           </div>
         </div>
 
-        <!-- Tacos -->
-        <div class="dish-card">
-          <div class="dish-card-img dish-bg-2">
-            <div class="dish-card-img-placeholder">🌮</div>
-            <div class="dish-card-img-overlay"></div>
-          </div>
-          <div class="dish-card-body">
-            <div class="dish-card-name">Carne Asada Tacos</div>
-            <div class="dish-card-desc">Grilled marinated steak, onion, cilantro & salsa verde on warm corn tortillas.</div>
-            <div class="dish-card-footer">
+        <!-- TOP RIGHT — Tacos -->
+        <div class="dish-panel">
+          <div class="dish-panel-bg dish-bg-2"
+               style="background-image:url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Menu.jpg')"></div>
+          <div class="dish-panel-overlay"></div>
+          <div class="dish-promo">Dine-in<span>Special</span></div>
+          <div class="dish-panel-emoji">🌮</div>
+          <div class="dish-panel-content">
+            <div class="dish-panel-name">Carne Asada Tacos</div>
+            <div class="dish-panel-desc">Grilled marinated steak, onion, cilantro & salsa verde on warm tortillas.</div>
+            <div class="dish-panel-footer">
               <span class="dish-price">$13.99</span>
-              <span class="dish-order-link">Order Now</span>
+              <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="dish-cta">Order Now</a>
             </div>
           </div>
         </div>
 
-        <!-- Fajitas -->
-        <div class="dish-card">
-          <div class="dish-card-img dish-bg-3">
-            <div class="dish-card-img-placeholder">🥩</div>
-            <div class="dish-card-img-overlay"></div>
-          </div>
-          <div class="dish-card-body">
-            <div class="dish-card-name">Sizzling Fajitas</div>
-            <div class="dish-card-desc">Skillet of grilled meat & peppers with tortillas, guacamole, sour cream & pico.</div>
-            <div class="dish-card-footer">
+        <!-- BOTTOM RIGHT — Fajitas -->
+        <div class="dish-panel">
+          <div class="dish-panel-bg dish-bg-3"
+               style="background-image:url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/long-wood-back-scaled-1.jpg')"></div>
+          <div class="dish-panel-overlay"></div>
+          <div class="dish-promo">Fan<span>Favourite</span></div>
+          <div class="dish-panel-emoji">🥩</div>
+          <div class="dish-panel-content">
+            <div class="dish-panel-name">Sizzling Fajitas</div>
+            <div class="dish-panel-desc">Skillet of grilled meat & peppers with tortillas, guacamole, sour cream & pico.</div>
+            <div class="dish-panel-footer">
               <span class="dish-price">$18.99</span>
-              <span class="dish-order-link">Order Now</span>
+              <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="dish-cta">Order Now</a>
             </div>
           </div>
         </div>
 
-        <!-- Enchiladas -->
-        <div class="dish-card">
-          <div class="dish-card-img dish-bg-4">
-            <div class="dish-card-img-placeholder">🫔</div>
-            <div class="dish-card-img-overlay"></div>
-          </div>
-          <div class="dish-card-body">
-            <div class="dish-card-name">Enchiladas</div>
-            <div class="dish-card-desc">Corn tortillas stuffed with your choice of filling, smothered in house red or green sauce.</div>
-            <div class="dish-card-footer">
-              <span class="dish-price">From $12.99</span>
-              <span class="dish-order-link">Order Now</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
