@@ -239,24 +239,66 @@
     @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
 
     /* ═══════════════════════════════════
-       TRUST BAR
+       WHY US SECTION
     ═══════════════════════════════════ */
-    .trust-bar {
+    .why-us {
+      background: var(--cream-dk);
+      padding: 6rem 2rem;
+      border-top: 1px solid rgba(28,18,8,0.08);
+    }
+    .why-us-inner { max-width: 1180px; margin: 0 auto; }
+    .why-us-head { text-align: center; margin-bottom: 4rem; }
+    .why-us-head .section-heading { color: var(--text-dark); }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    .why-card {
+      background: var(--cream);
+      border: 1px solid rgba(28,18,8,0.07);
+      border-radius: 8px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .why-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dk), var(--gold-lt));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .why-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(14,8,3,0.12); border-color: rgba(212,150,83,0.25); }
+    .why-card:hover::before { transform: scaleX(1); }
+
+    .why-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
       background: var(--dark);
-      border-top: 1px solid rgba(212,150,83,0.2);
-      border-bottom: 1px solid rgba(212,150,83,0.2);
-      padding: 1.5rem 2rem;
+      border: 1px solid rgba(212,150,83,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.75rem;
+      margin: 0 auto 1.75rem;
+      transition: border-color 0.3s;
     }
-    .trust-bar-inner {
-      max-width: 1000px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: center; gap: 3rem;
-      flex-wrap: wrap;
+    .why-card:hover .why-icon { border-color: var(--gold); }
+
+    .why-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem; font-weight: 400; font-style: italic;
+      color: var(--text-dark);
+      margin-bottom: 0.65rem;
     }
-    .trust-item { display: flex; align-items: center; gap: 0.75rem; }
-    .trust-item-icon { font-size: 1.3rem; }
-    .trust-item-text { font-size: 0.82rem; color: rgba(240,232,220,0.6); line-height: 1.4; }
-    .trust-item-text strong { display: block; color: var(--gold); font-size: 1rem; font-weight: 600; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.03em; }
-    .trust-divider { width: 1px; height: 36px; background: rgba(212,150,83,0.18); }
+    .why-card p {
+      font-size: 0.85rem; color: var(--text-muted);
+      line-height: 1.7;
+    }
 
     /* ═══════════════════════════════════
        SECTION SHARED
@@ -816,8 +858,7 @@
       .dishes-grid { grid-template-columns: 1fr; }
       .hero h1 { font-size: 4rem; }
       .nav { padding: 0 1.25rem; }
-      .trust-bar-inner { gap: 1.5rem; }
-      .trust-divider { display: none; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr; }
       .menu-order-cta { padding: 2.5rem 1.5rem; }
     }
@@ -892,30 +933,40 @@
     </div>
   </section>
 
-  <!-- TRUST BAR -->
-  <div class="trust-bar">
-    <div class="trust-bar-inner">
-      <div class="trust-item">
-        <div class="trust-item-icon">🌿</div>
-        <div class="trust-item-text"><strong>Fresh Daily</strong>Never frozen, always made in-house</div>
+  <!-- WHY US -->
+  <section class="why-us">
+    <div class="why-us-inner">
+      <div class="why-us-head">
+        <div class="section-label-sm">Why El Molcajete</div>
+        <div class="section-heading">
+          <span>more than a meal —</span>
+          <span class="em">an experience</span>
+        </div>
       </div>
-      <div class="trust-divider"></div>
-      <div class="trust-item">
-        <div class="trust-item-icon">🏡</div>
-        <div class="trust-item-text"><strong>Family Owned</strong>Recipes passed through generations</div>
-      </div>
-      <div class="trust-divider"></div>
-      <div class="trust-item">
-        <div class="trust-item-icon">🍽️</div>
-        <div class="trust-item-text"><strong>Dine-in & Takeout</strong>76 W Powell Rd, Lewis Center</div>
-      </div>
-      <div class="trust-divider"></div>
-      <div class="trust-item">
-        <div class="trust-item-icon">⚡</div>
-        <div class="trust-item-text"><strong>Open 7 Days</strong>Mon–Sun, 11AM onwards</div>
+      <div class="why-grid">
+        <div class="why-card">
+          <div class="why-icon">🌿</div>
+          <h3>Fresh Daily</h3>
+          <p>Every dish is made in-house from scratch. Never frozen. Never compromised. Just honest, fresh cooking.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🏡</div>
+          <h3>Family Owned</h3>
+          <p>Rooted in tradition and run with heart. Recipes passed down through generations, served with love.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">🍽️</div>
+          <h3>Dine-in & Takeout</h3>
+          <p>Whether you're joining us at the table or taking it home — the experience is always the same: outstanding.</p>
+        </div>
+        <div class="why-card">
+          <div class="why-icon">⚡</div>
+          <h3>Open 7 Days</h3>
+          <p>From Monday through Sunday, starting at 11AM — we're always here when the craving hits.</p>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <!-- SIGNATURE DISHES -->
   <section class="signature">
