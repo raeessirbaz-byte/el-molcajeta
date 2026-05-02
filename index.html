@@ -6,964 +6,1227 @@
   <title>El Molcajete Mexican Restaurant & Bar — Lewis Center, OH</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --red-deep:    #8B1A1A;
+      --gold:        #d49653;
+      --gold-lt:     #e8b470;
+      --gold-dk:     #b07830;
+      --red:         #8B1A1A;
       --red-mid:     #A52A2A;
-      --red-light:   #C0392B;
-      --green-deep:  #2A5020;
-      --green-mid:   #3A6B2E;
-      --green-light: #4E8A3F;
-      --gold:        #C4973A;
-      --gold-light:  #D4AB52;
-      --cream:       #FDF6EC;
-      --cream-dark:  #F3E8D2;
-      --earth:       #7A5C3A;
-      --earth-light: #A07850;
-      --dark:        #1C0A0A;
-      --text-dark:   #2A1A0A;
-      --text-mid:    #5C3D1E;
-      --text-light:  #8A6845;
-      --white:       #FFFFFF;
-      --shadow-sm:   0 2px 8px rgba(28,10,10,0.12);
-      --shadow-md:   0 4px 20px rgba(28,10,10,0.18);
-      --shadow-lg:   0 8px 40px rgba(28,10,10,0.25);
-      --radius:      12px;
-      --radius-sm:   8px;
+      --dark:        #0e0803;
+      --dark-mid:    #1c1208;
+      --dark-warm:   #2c2418;
+      --cream:       #f7f1e8;
+      --cream-dk:    #ede4d4;
+      --text-light:  #f0e8dc;
+      --text-muted:  #9a8a78;
+      --text-dark:   #1c1208;
+      --shadow:      0 8px 40px rgba(14,8,3,0.35);
+      --shadow-sm:   0 2px 12px rgba(14,8,3,0.18);
     }
 
     html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; line-height: 1.6; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--cream);
-      color: var(--text-dark);
-      line-height: 1.6;
-      overflow-x: hidden;
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark); }
+    ::-webkit-scrollbar-thumb { background: var(--gold-dk); border-radius: 3px; }
+
+    /* ═══════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 0 3rem;
+      height: 76px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: transparent;
+      transition: background 0.4s, backdrop-filter 0.4s, box-shadow 0.4s;
+    }
+    .nav.solid {
+      background: rgba(14,8,3,0.96);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(212,150,83,0.25);
     }
 
-    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+    .nav-logo { cursor: pointer; }
+    .nav-logo img { height: 54px; width: auto; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
 
-    /* ─── NAVBAR ─── */
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--dark);
-      border-bottom: 3px solid var(--gold);
-      padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-      transition: box-shadow 0.3s;
+    .nav-center {
+      display: flex; align-items: center; gap: 0.25rem;
+      position: absolute; left: 50%; transform: translateX(-50%);
     }
-    .navbar.scrolled { box-shadow: var(--shadow-lg); }
-
-    .nav-logo img {
-      height: 52px;
-      width: auto;
-      display: block;
-      filter: brightness(1.05);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-family: 'Inter', sans-serif;
-      font-weight: 500;
-      font-size: 0.875rem;
-      color: var(--cream);
-      text-decoration: none;
-      padding: 0.5rem 0.9rem;
-      border-radius: var(--radius-sm);
-      transition: color 0.2s, background 0.2s;
-      letter-spacing: 0.02em;
+    .nav-center a {
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em;
+      color: rgba(240,232,220,0.8);
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: color 0.2s;
       cursor: pointer;
     }
-    .nav-links a:hover { color: var(--gold-light); }
-    .nav-links a.active { color: var(--gold); }
+    .nav-center a:hover, .nav-center a.active { color: var(--gold-lt); }
 
-    .nav-links .btn-order {
-      background: var(--red-mid);
-      color: var(--white) !important;
-      padding: 0.5rem 1.2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      border: 2px solid var(--red-light);
-      transition: background 0.2s, transform 0.15s;
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+    .nav-btn-menu {
+      display: flex; align-items: center; gap: 0.45rem;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.06em;
+      color: var(--cream); padding: 0.5rem 1rem;
+      border: 1px solid rgba(240,232,220,0.3); border-radius: 4px;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s;
     }
-    .nav-links .btn-order:hover {
-      background: var(--red-light);
-      transform: translateY(-1px);
+    .nav-btn-menu:hover { border-color: var(--gold); color: var(--gold-lt); }
+    .nav-btn-menu svg { flex-shrink: 0; }
+
+    .nav-btn-order {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em;
+      color: var(--dark); background: var(--gold);
+      padding: 0.55rem 1.25rem; border-radius: 4px;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+      border: none; font-family: 'Inter', sans-serif;
     }
+    .nav-btn-order:hover { background: var(--gold-lt); transform: translateY(-1px); }
 
     .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 4px;
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
     }
-    .nav-hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--cream);
-      border-radius: 2px;
-      transition: all 0.3s;
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--cream); border-radius: 2px; transition: all 0.3s; }
+
+    /* ── MOBILE NAV ── */
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 76px; left: 0; right: 0;
+      background: rgba(14,8,3,0.97); backdrop-filter: blur(12px);
+      padding: 1.5rem 2rem 2rem;
+      border-bottom: 1px solid rgba(212,150,83,0.2);
+      z-index: 999;
+      transform: translateY(-110%); opacity: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+    .nav-mobile-menu.open { transform: translateY(0); opacity: 1; }
+    .nav-mobile-menu a {
+      display: block; font-size: 1.1rem; font-weight: 500;
+      color: var(--text-light); padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(240,232,220,0.07);
+      cursor: pointer; transition: color 0.2s;
+    }
+    .nav-mobile-menu a:hover { color: var(--gold-lt); }
+    .nav-mobile-menu .mob-order {
+      display: inline-block; margin-top: 1.25rem;
+      background: var(--gold); color: var(--dark);
+      font-weight: 700; padding: 0.7rem 1.75rem; border-radius: 4px;
     }
 
-    /* ─── PAGE CONTAINERS ─── */
+    /* ═══════════════════════════════════
+       PAGE SWITCHER
+    ═══════════════════════════════════ */
     .page { display: none; }
     .page.active { display: block; }
 
-    /* ─── HERO ─── */
+    /* ═══════════════════════════════════
+       HERO
+    ═══════════════════════════════════ */
     .hero {
-      min-height: 88vh;
-      background:
-        linear-gradient(160deg, rgba(28,10,10,0.82) 0%, rgba(42,80,32,0.55) 60%, rgba(28,10,10,0.75) 100%),
-        repeating-linear-gradient(
-          45deg,
-          rgba(196,151,58,0.04) 0px,
-          rgba(196,151,58,0.04) 2px,
-          transparent 2px,
-          transparent 20px
-        ),
-        var(--red-deep);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 5rem 2rem;
+      min-height: 100vh;
       position: relative;
+      display: flex; align-items: flex-end; justify-content: center;
+      padding-bottom: 8vh;
       overflow: hidden;
     }
 
-    .hero::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(196,151,58,0.08) 0%, transparent 70%),
-        radial-gradient(circle 300px at 15% 70%, rgba(58,107,46,0.15) 0%, transparent 60%),
-        radial-gradient(circle 250px at 85% 30%, rgba(139,26,26,0.25) 0%, transparent 60%);
-      pointer-events: none;
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Top-Slider.jpg');
+      background-size: cover; background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 8s ease;
     }
+    .hero:hover .hero-bg { transform: scale(1.0); }
 
-    .hero-content { position: relative; z-index: 1; max-width: 780px; }
-
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 1.25rem;
-    }
-    .hero-eyebrow::before,
-    .hero-eyebrow::after {
-      content: '';
-      display: block;
-      width: 32px;
-      height: 1px;
-      background: var(--gold-light);
-      opacity: 0.7;
-    }
-
-    .hero h1 {
-      font-size: clamp(2.6rem, 6vw, 5rem);
-      font-weight: 800;
-      color: var(--white);
-      line-height: 1.1;
-      margin-bottom: 1.25rem;
-      text-shadow: 0 2px 20px rgba(28,10,10,0.5);
-    }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--gold-light);
-    }
-
-    .hero p {
-      font-size: clamp(1rem, 2vw, 1.2rem);
-      color: rgba(253,246,236,0.88);
-      max-width: 560px;
-      margin: 0 auto 2.25rem;
-      font-weight: 300;
-      line-height: 1.75;
-    }
-
-    .hero-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--red-mid);
-      color: var(--white);
-      padding: 0.85rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 2px solid var(--red-light);
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      font-family: 'Inter', sans-serif;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-primary:hover {
-      background: var(--red-light);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(139,26,26,0.45);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--white);
-      padding: 0.85rem 2rem;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 2px solid rgba(253,246,236,0.55);
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, transform 0.15s;
-      font-family: 'Inter', sans-serif;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-outline:hover {
-      border-color: var(--gold-light);
-      color: var(--gold-light);
-      transform: translateY(-2px);
-    }
-
-    /* ─── FEATURES STRIP ─── */
-    .features-strip {
-      background: var(--green-deep);
-      padding: 1.5rem 2rem;
-      border-top: 3px solid var(--gold);
-      border-bottom: 3px solid var(--gold);
-    }
-
-    .features-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-    }
-
-    .feature-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      text-align: center;
-    }
-
-    .feature-icon {
-      width: 44px;
-      height: 44px;
-      background: rgba(196,151,58,0.18);
-      border: 2px solid var(--gold);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.15rem;
-    }
-
-    .feature-item h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--gold-light);
-    }
-
-    .feature-item p {
-      font-size: 0.75rem;
-      color: rgba(253,246,236,0.7);
-      font-weight: 400;
-    }
-
-    /* ─── SECTION SHARED ─── */
-    .section {
-      padding: 5rem 2rem;
-    }
-
-    .section-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--red-mid);
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 0.75rem;
-      line-height: 1.2;
-    }
-
-    .section-sub {
-      font-size: 1.05rem;
-      color: var(--text-mid);
-      max-width: 520px;
-      line-height: 1.7;
-    }
-
-    .section-header { margin-bottom: 3rem; }
-
-    /* ─── MENU TEASER ─── */
-    .menu-teaser { background: var(--cream-dark); }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .category-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-      transition: transform 0.25s, box-shadow 0.25s;
-      cursor: pointer;
-    }
-    .category-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-    }
-
-    .category-visual {
-      height: 130px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .category-visual.tacos    { background: linear-gradient(135deg, #8B1A1A 0%, #C0392B 100%); }
-    .category-visual.burritos { background: linear-gradient(135deg, #3A6B2E 0%, #2A5020 100%); }
-    .category-visual.drinks   { background: linear-gradient(135deg, #C4973A 0%, #7A5C3A 100%); }
-    .category-visual.specials { background: linear-gradient(135deg, #1C0A0A 0%, #3A1010 100%); }
-
-    .category-visual::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        -45deg,
-        rgba(255,255,255,0.04) 0px,
-        rgba(255,255,255,0.04) 1px,
-        transparent 1px,
-        transparent 12px
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(14,8,3,0.35) 0%,
+        rgba(14,8,3,0.2) 30%,
+        rgba(14,8,3,0.55) 65%,
+        rgba(14,8,3,0.85) 100%
       );
     }
 
-    .category-body { padding: 1.25rem 1.5rem; }
-
-    .category-body h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      margin-bottom: 0.35rem;
+    .hero-content {
+      position: relative; z-index: 2;
+      text-align: center; max-width: 860px; padding: 0 2rem;
     }
 
-    .category-body p {
-      font-size: 0.875rem;
-      color: var(--text-mid);
-      margin-bottom: 1rem;
-      line-height: 1.55;
-    }
-
-    .link-menu {
-      font-size: 0.825rem;
-      font-weight: 600;
-      color: var(--red-mid);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      cursor: pointer;
-      transition: gap 0.2s, color 0.2s;
-    }
-    .link-menu:hover { color: var(--red-light); gap: 0.5rem; }
-    .link-menu::after { content: '→'; }
-
-    /* ─── REVIEWS ─── */
-    .reviews { background: var(--dark); }
-    .reviews .section-title { color: var(--white); }
-    .reviews .section-label { color: var(--gold); }
-    .reviews .section-sub { color: rgba(253,246,236,0.65); }
-
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .review-card {
-      background: rgba(253,246,236,0.06);
-      border: 1px solid rgba(196,151,58,0.2);
-      border-radius: var(--radius);
-      padding: 1.75rem;
-      transition: border-color 0.25s, background 0.25s;
-    }
-    .review-card:hover {
-      border-color: rgba(196,151,58,0.5);
-      background: rgba(253,246,236,0.09);
-    }
-
-    .stars {
-      color: var(--gold);
-      font-size: 1.1rem;
-      margin-bottom: 1rem;
-      letter-spacing: 0.1em;
-    }
-
-    .review-text {
-      font-size: 0.95rem;
-      color: rgba(253,246,236,0.82);
-      line-height: 1.75;
-      font-style: italic;
+    .hero-label {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
       margin-bottom: 1.25rem;
     }
-
-    .review-author {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
+    .hero-label::before, .hero-label::after {
+      content: ''; display: block; width: 28px; height: 1px; background: var(--gold); opacity: 0.6;
     }
 
-    .author-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      font-size: 1rem;
-      flex-shrink: 0;
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(4.5rem, 11vw, 9rem);
+      font-weight: 300; font-style: italic;
+      color: var(--cream); line-height: 0.92;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 4px 30px rgba(14,8,3,0.5);
     }
-    .avatar-d { background: var(--red-mid); color: var(--white); }
-    .avatar-t { background: var(--green-mid); color: var(--white); }
-    .avatar-e { background: var(--gold); color: var(--dark); }
+    .hero h1 span { display: block; }
+    .hero h1 .accent { color: var(--gold-lt); font-weight: 400; }
 
-    .author-name {
-      font-weight: 600;
-      font-size: 0.9rem;
-      color: var(--cream);
-    }
-    .author-tag {
-      font-size: 0.75rem;
-      color: rgba(253,246,236,0.45);
-    }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #120505;
-      border-top: 3px solid var(--gold);
-      padding: 3.5rem 2rem 2rem;
-    }
-
-    .footer-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr;
-      gap: 3rem;
+    .hero-sub {
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: rgba(240,232,220,0.72);
+      letter-spacing: 0.08em;
+      font-weight: 400;
       margin-bottom: 2.5rem;
     }
 
-    .footer-brand img {
-      height: 60px;
-      margin-bottom: 1rem;
-      filter: brightness(0.95);
-    }
-
-    .footer-brand p {
-      font-size: 0.85rem;
-      color: rgba(253,246,236,0.5);
-      line-height: 1.7;
-      max-width: 260px;
-    }
-
-    .footer-col h4 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      color: var(--gold-light);
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-
-    .footer-col p, .footer-col a {
-      font-size: 0.85rem;
-      color: rgba(253,246,236,0.6);
-      line-height: 1.9;
-      display: block;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--gold-light); }
-
-    .footer-social {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-      background: rgba(196,151,58,0.12);
-      border: 1px solid rgba(196,151,58,0.3);
-      border-radius: 50px;
-      padding: 0.4rem 1rem;
-      font-weight: 600;
-      color: var(--gold-light) !important;
-      font-size: 0.82rem;
-    }
-    .footer-social:hover {
-      background: rgba(196,151,58,0.22);
-      color: var(--gold) !important;
-    }
-
-    .footer-bottom {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(196,151,58,0.15);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .footer-bottom p {
-      font-size: 0.78rem;
-      color: rgba(253,246,236,0.3);
-    }
-
-    /* ────────────────────────────────────────
-       PAGE 2 — MENU
-    ──────────────────────────────────────── */
-
-    .menu-page-header {
-      background:
-        linear-gradient(165deg, rgba(28,10,10,0.88) 0%, rgba(42,80,32,0.6) 100%),
-        var(--red-deep);
-      padding: 5rem 2rem 4rem;
-      text-align: center;
-      border-bottom: 4px solid var(--gold);
-    }
-
-    .menu-page-header .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      margin-bottom: 0.75rem;
-    }
-
-    .menu-page-header h1 {
-      font-size: clamp(2.5rem, 5vw, 4rem);
-      font-weight: 800;
-      color: var(--white);
-      margin-bottom: 0.75rem;
-    }
-
-    .menu-page-header p {
-      font-size: 1.05rem;
-      color: rgba(253,246,236,0.75);
-      font-weight: 300;
-    }
-
-    /* Menu content */
-    .menu-content {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 4rem 2rem 5rem;
-    }
-
-    .menu-section { margin-bottom: 4rem; }
-
-    .menu-section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      color: var(--text-dark);
-      padding-bottom: 0.6rem;
-      border-bottom: 2px solid var(--cream-dark);
-      margin-bottom: 1.75rem;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-    .menu-section-title::before {
-      content: '';
-      display: block;
-      width: 5px;
-      height: 1.4em;
-      background: var(--red-mid);
-      border-radius: 3px;
-      flex-shrink: 0;
-    }
-
-    .menu-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .menu-item {
-      background: var(--white);
-      border-radius: var(--radius-sm);
-      padding: 1.1rem 1.25rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      border: 1px solid rgba(196,151,58,0.12);
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .menu-item:hover {
-      border-color: rgba(196,151,58,0.35);
-      box-shadow: var(--shadow-sm);
-    }
-
-    .menu-item-info { flex: 1; }
-
-    .menu-item-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-dark);
-      margin-bottom: 0.2rem;
-    }
-
-    .menu-item-desc {
-      font-size: 0.8rem;
-      color: var(--text-light);
-      line-height: 1.5;
-    }
-
-    .menu-item-price {
-      font-weight: 700;
-      font-size: 0.95rem;
-      color: var(--green-deep);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* Signature card */
-    .menu-item.signature {
-      grid-column: 1 / -1;
-      background: linear-gradient(135deg, #1C0A0A 0%, #3A1010 100%);
-      border: 2px solid var(--gold);
-      padding: 1.5rem 1.75rem;
-      position: relative;
-      overflow: hidden;
-    }
-    .menu-item.signature::before {
-      content: '';
-      position: absolute;
-      top: -30px; right: -30px;
-      width: 120px; height: 120px;
-      border-radius: 50%;
-      background: rgba(196,151,58,0.08);
-      border: 1px solid rgba(196,151,58,0.15);
-    }
-    .menu-item.signature .menu-item-name {
-      font-size: 1.25rem;
-      color: var(--gold-light);
-    }
-    .menu-item.signature .menu-item-desc {
-      color: rgba(253,246,236,0.65);
-      font-size: 0.875rem;
-    }
-    .menu-item.signature .menu-item-price {
-      color: var(--gold-light);
-      font-size: 1.1rem;
-    }
-    .signature-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.35rem;
-      background: var(--gold);
-      color: var(--dark);
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 0.25rem 0.6rem;
-      border-radius: 50px;
-      margin-bottom: 0.5rem;
-    }
-
-    /* Order CTA banner */
-    .order-cta {
-      background:
-        linear-gradient(135deg, var(--red-deep) 0%, var(--red-mid) 100%);
-      border-top: 4px solid var(--gold);
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-
-    .order-cta h2 {
-      font-size: clamp(1.75rem, 4vw, 2.75rem);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 0.6rem;
-    }
-
-    .order-cta p {
-      font-size: 1.05rem;
-      color: rgba(253,246,236,0.75);
-      margin-bottom: 2rem;
-      font-weight: 300;
-    }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 3rem; }
 
     .btn-gold {
-      background: var(--gold);
-      color: var(--dark);
-      padding: 0.9rem 2.25rem;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 1rem;
-      border: none;
-      cursor: pointer;
+      background: var(--gold); color: var(--dark);
+      padding: 0.85rem 2.25rem; border-radius: 4px;
+      font-weight: 700; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer; font-family: 'Inter', sans-serif;
       transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
-      font-family: 'Inter', sans-serif;
-      text-decoration: none;
       display: inline-block;
     }
-    .btn-gold:hover {
-      background: var(--gold-light);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 24px rgba(196,151,58,0.45);
+    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(212,150,83,0.4); }
+
+    .btn-ghost {
+      background: transparent; color: var(--cream);
+      padding: 0.85rem 2.25rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1px solid rgba(240,232,220,0.45);
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--gold-lt); color: var(--gold-lt); transform: translateY(-2px); }
+
+    .hero-rating {
+      display: inline-flex; align-items: center; gap: 0.75rem;
+      background: rgba(14,8,3,0.55); backdrop-filter: blur(8px);
+      border: 1px solid rgba(212,150,83,0.3);
+      border-radius: 50px; padding: 0.5rem 1.25rem;
+    }
+    .hero-rating-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; }
+    .hero-rating-text { font-size: 0.78rem; color: rgba(240,232,220,0.8); }
+    .hero-rating-divider { width: 1px; height: 14px; background: rgba(212,150,83,0.3); }
+
+    /* ── SCROLL INDICATOR ── */
+    .scroll-hint {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint span { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(240,232,220,0.45); }
+    .scroll-hint-line { width: 1px; height: 36px; background: linear-gradient(to bottom, rgba(212,150,83,0.6), transparent); }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* ═══════════════════════════════════
+       TRUST BAR
+    ═══════════════════════════════════ */
+    .trust-bar {
+      background: var(--dark);
+      border-top: 1px solid rgba(212,150,83,0.2);
+      border-bottom: 1px solid rgba(212,150,83,0.2);
+      padding: 1.5rem 2rem;
+    }
+    .trust-bar-inner {
+      max-width: 1000px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; gap: 3rem;
+      flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.75rem; }
+    .trust-item-icon { font-size: 1.3rem; }
+    .trust-item-text { font-size: 0.82rem; color: rgba(240,232,220,0.6); line-height: 1.4; }
+    .trust-item-text strong { display: block; color: var(--gold); font-size: 1rem; font-weight: 600; font-family: 'Cormorant Garamond', serif; letter-spacing: 0.03em; }
+    .trust-divider { width: 1px; height: 36px; background: rgba(212,150,83,0.18); }
+
+    /* ═══════════════════════════════════
+       SECTION SHARED
+    ═══════════════════════════════════ */
+    .section-label-sm {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 0.75rem;
     }
 
-    /* ─── MOBILE ─── */
-    @media (max-width: 900px) {
+    .section-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem, 5vw, 4.5rem);
+      font-weight: 300; font-style: italic;
+      line-height: 1.05; color: var(--text-dark);
+    }
+    .section-heading.light { color: var(--cream); }
+    .section-heading span { display: block; }
+    .section-heading .em { font-weight: 400; color: var(--gold-dk); }
+    .section-heading .em-light { font-weight: 400; color: var(--gold-lt); }
+
+    .section-sub {
+      font-size: 0.95rem; color: var(--text-muted);
+      line-height: 1.75; max-width: 480px; margin-top: 1rem;
+    }
+    .section-sub.light { color: rgba(240,232,220,0.6); }
+
+    /* ═══════════════════════════════════
+       SIGNATURE DISHES
+    ═══════════════════════════════════ */
+    .signature {
+      padding: 7rem 2rem;
+      background: var(--cream);
+    }
+    .signature-inner { max-width: 1180px; margin: 0 auto; }
+    .signature-head { text-align: center; margin-bottom: 4rem; }
+
+    .dishes-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+
+    .dish-card {
+      background: var(--dark-warm);
+      border-radius: 6px; overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .dish-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+
+    .dish-card-img {
+      height: 220px; overflow: hidden; position: relative;
+    }
+    .dish-card-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+      filter: brightness(0.88);
+    }
+    .dish-card:hover .dish-card-img img { transform: scale(1.06); filter: brightness(0.95); }
+
+    .dish-card-img-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem;
+    }
+    .dish-bg-1 { background: linear-gradient(135deg, #3a1010 0%, #7a2020 100%); }
+    .dish-bg-2 { background: linear-gradient(135deg, #1a2e10 0%, #3a6020 100%); }
+    .dish-bg-3 { background: linear-gradient(135deg, #2a1a08 0%, #6a4020 100%); }
+    .dish-bg-4 { background: linear-gradient(135deg, #10101a 0%, #302050 100%); }
+
+    .dish-card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 50%, rgba(14,8,3,0.7) 100%);
+    }
+
+    .dish-card-body { padding: 1.25rem 1.25rem 1.5rem; }
+    .dish-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .dish-card-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 0.85rem; }
+    .dish-card-footer { display: flex; align-items: center; justify-content: space-between; }
+    .dish-price { font-size: 1.05rem; font-weight: 700; color: var(--gold); }
+    .dish-order-link {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(212,150,83,0.6); transition: color 0.2s;
+    }
+    .dish-card:hover .dish-order-link { color: var(--gold-lt); }
+
+    .dish-card.featured {
+      grid-column: span 2;
+    }
+    .dish-card.featured .dish-card-img { height: 280px; }
+    .dish-card.featured .dish-card-name { font-size: 1.35rem; }
+    .dish-badge {
+      position: absolute; top: 1rem; left: 1rem; z-index: 2;
+      background: var(--gold); color: var(--dark);
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.7rem; border-radius: 2px;
+    }
+
+    /* ═══════════════════════════════════
+       ABOUT / PHILOSOPHY SPLIT
+    ═══════════════════════════════════ */
+    .about { background: var(--dark); overflow: hidden; }
+    .about-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 580px;
+    }
+
+    .about-image { position: relative; overflow: hidden; min-height: 420px; }
+    .about-image img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.82); transition: transform 6s ease; }
+    .about:hover .about-image img { transform: scale(1.04); }
+    .about-image-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent 60%, rgba(14,8,3,0.4) 100%);
+    }
+
+    .about-content {
+      padding: 6rem 5rem 6rem 4rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .about-content .section-sub { max-width: 400px; margin-top: 1.5rem; }
+    .about-quote {
+      margin-top: 2.5rem;
+      padding-left: 1.25rem;
+      border-left: 2px solid var(--gold);
+    }
+    .about-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-style: italic; font-weight: 300;
+      color: rgba(240,232,220,0.7); line-height: 1.65;
+    }
+    .about-actions { margin-top: 2.5rem; }
+
+    /* ═══════════════════════════════════
+       CATERING FULL-BLEED
+    ═══════════════════════════════════ */
+    .catering {
+      position: relative; min-height: 520px;
+      display: flex; align-items: center;
+      overflow: hidden;
+    }
+    .catering-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Catering-1.jpg');
+      background-size: cover; background-position: center;
+      filter: brightness(0.45);
+      transform: scale(1.04); transition: transform 8s ease;
+    }
+    .catering:hover .catering-bg { transform: scale(1); }
+    .catering-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(105deg, rgba(14,8,3,0.7) 0%, rgba(139,26,26,0.25) 60%, transparent 100%);
+    }
+    .catering-content {
+      position: relative; z-index: 2;
+      max-width: 1180px; margin: 0 auto; padding: 6rem 2rem;
+      max-width: 560px; margin-left: max(2rem, calc((100vw - 1180px)/2 + 2rem));
+    }
+    .catering-content .section-sub { margin-top: 1.25rem; margin-bottom: 2.25rem; }
+
+    /* ═══════════════════════════════════
+       DRINKS SECTION
+    ═══════════════════════════════════ */
+    .drinks { padding: 7rem 2rem; background: var(--cream-dk); }
+    .drinks-inner { max-width: 1180px; margin: 0 auto; }
+    .drinks-head { margin-bottom: 3.5rem; }
+
+    .drinks-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 1.25rem;
+      align-items: stretch;
+    }
+
+    .drink-card { position: relative; border-radius: 6px; overflow: hidden; }
+    .drink-card-inner { position: relative; height: 100%; min-height: 340px; }
+    .drink-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; filter: brightness(0.75);
+      transition: filter 0.4s, transform 0.5s;
+    }
+    .drink-card:hover img { filter: brightness(0.9); transform: scale(1.03); }
+    .drink-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 30%, rgba(14,8,3,0.88) 100%);
+    }
+    .drink-card-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 1.75rem;
+    }
+    .drink-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 600; color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .drink-card-sub { font-size: 0.78rem; color: rgba(240,232,220,0.6); }
+    .drink-price { font-size: 1rem; font-weight: 700; color: var(--gold); margin-top: 0.5rem; }
+
+    .drink-card-placeholder {
+      width: 100%; height: 100%; min-height: 340px;
+      display: flex; align-items: flex-end;
+    }
+    .drink-ph-1 { background: linear-gradient(160deg, #2c1a08 0%, #6a3010 60%, #8B1A1A 100%); }
+    .drink-ph-2 { background: linear-gradient(160deg, #1a2c08 0%, #3a6020 100%); }
+    .drink-ph-3 { background: linear-gradient(160deg, #1a0820 0%, #4a1050 100%); }
+
+    /* ═══════════════════════════════════
+       HERITAGE STRIP
+    ═══════════════════════════════════ */
+    .heritage {
+      background: var(--dark-mid);
+      padding: 5rem 2rem;
+      position: relative; overflow: hidden;
+    }
+    .heritage::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%; border: 1px solid rgba(212,150,83,0.08);
+    }
+    .heritage::after {
+      content: '';
+      position: absolute; bottom: -80px; left: -80px;
+      width: 400px; height: 400px;
+      border-radius: 50%; border: 1px solid rgba(212,150,83,0.05);
+    }
+    .heritage-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 2px 1fr 2px 1fr;
+      gap: 3rem; align-items: center;
+    }
+    .heritage-divider { background: rgba(212,150,83,0.2); align-self: stretch; }
+    .heritage-item { text-align: center; }
+    .heritage-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; font-weight: 300; font-style: italic;
+      color: var(--gold); line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+    .heritage-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: rgba(240,232,220,0.5);
+    }
+
+    /* ═══════════════════════════════════
+       MENU FEATURE SPLIT
+    ═══════════════════════════════════ */
+    .menu-feature {
+      background: var(--cream);
+      overflow: hidden;
+    }
+    .menu-feature-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+    }
+    .menu-feature-content {
+      padding: 6rem 4rem 6rem 2rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .menu-feature-content .section-sub { max-width: 400px; }
+    .menu-feature-image { position: relative; overflow: hidden; }
+    .menu-feature-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
+    .menu-feature:hover .menu-feature-image img { transform: scale(1.04); }
+    .menu-feature-actions { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .btn-dark {
+      background: var(--dark); color: var(--cream);
+      padding: 0.85rem 2.25rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+      border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-dark:hover { background: var(--dark-warm); transform: translateY(-1px); }
+
+    .btn-outline-dark {
+      background: transparent; color: var(--text-dark);
+      padding: 0.85rem 2.25rem; border-radius: 4px;
+      font-weight: 600; font-size: 0.82rem; letter-spacing: 0.08em; text-transform: uppercase;
+      border: 1.5px solid rgba(28,18,8,0.3);
+      cursor: pointer; font-family: 'Inter', sans-serif;
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+      display: inline-block;
+    }
+    .btn-outline-dark:hover { border-color: var(--gold-dk); color: var(--gold-dk); transform: translateY(-1px); }
+
+    /* ═══════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════ */
+    .testimonials {
+      position: relative; padding: 7rem 2rem;
+      overflow: hidden;
+    }
+    .testimonials-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Reviews.jpg');
+      background-size: cover; background-position: center;
+      filter: brightness(0.15) saturate(0.5);
+    }
+    .testimonials-overlay {
+      position: absolute; inset: 0;
+      background: rgba(14,8,3,0.82);
+    }
+    .testimonials-inner { position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; }
+    .testimonials-head { text-align: center; margin-bottom: 4rem; }
+
+    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .review-card {
+      background: rgba(240,232,220,0.05);
+      border: 1px solid rgba(212,150,83,0.18);
+      border-radius: 6px; padding: 2rem;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .review-card:hover {
+      border-color: rgba(212,150,83,0.45);
+      background: rgba(240,232,220,0.08);
+    }
+
+    .review-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.1em; margin-bottom: 1.25rem; }
+    .review-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem; font-style: italic; font-weight: 300;
+      color: rgba(240,232,220,0.78); line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .review-author { display: flex; align-items: center; gap: 0.75rem; }
+    .review-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem; flex-shrink: 0;
+    }
+    .av-r { background: var(--red-mid); color: var(--cream); }
+    .av-g { background: var(--dark-warm); border: 1px solid var(--gold-dk); color: var(--gold-lt); }
+    .av-b { background: #2a4060; color: #90b8e0; }
+    .review-name { font-weight: 600; font-size: 0.88rem; color: var(--cream); }
+    .review-tag { font-size: 0.72rem; color: rgba(240,232,220,0.4); margin-top: 0.1rem; }
+
+    /* ═══════════════════════════════════
+       LOCATION SECTION
+    ═══════════════════════════════════ */
+    .location { background: var(--cream); overflow: hidden; }
+    .location-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+    .location-content {
+      padding: 6rem 4rem 6rem 2rem;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .location-details { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .loc-item { display: flex; gap: 1rem; align-items: flex-start; }
+    .loc-icon {
+      width: 40px; height: 40px; border-radius: 4px;
+      background: var(--dark); display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .loc-label { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold-dk); margin-bottom: 0.2rem; }
+    .loc-value { font-size: 0.9rem; color: var(--text-dark); line-height: 1.6; }
+    .loc-value a { color: var(--red); font-weight: 600; }
+    .loc-value a:hover { color: var(--red-mid); }
+
+    .location-actions { margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    .location-image { position: relative; overflow: hidden; }
+    .location-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 6s ease; }
+    .location:hover .location-image img { transform: scale(1.03); }
+
+    /* ═══════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════ */
+    footer {
+      background: var(--dark);
+      border-top: 1px solid rgba(212,150,83,0.2);
+      padding: 5rem 2rem 2.5rem;
+    }
+    .footer-inner {
+      max-width: 1180px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr;
+      gap: 3rem; margin-bottom: 4rem;
+    }
+
+    .footer-brand-logo { margin-bottom: 1.25rem; }
+    .footer-brand-logo img { height: 56px; width: auto; }
+    .footer-brand p { font-size: 0.83rem; color: rgba(240,232,220,0.45); line-height: 1.75; max-width: 260px; }
+
+    .footer-col h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.88rem; font-weight: 600; color: var(--gold);
+      letter-spacing: 0.06em; margin-bottom: 1.25rem;
+    }
+    .footer-col a, .footer-col p {
+      font-size: 0.82rem; color: rgba(240,232,220,0.5);
+      display: block; line-height: 2.1;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--gold-lt); }
+
+    .footer-social-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      margin-top: 0.75rem;
+      background: rgba(212,150,83,0.1);
+      border: 1px solid rgba(212,150,83,0.25);
+      border-radius: 4px; padding: 0.45rem 1rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--gold-lt) !important;
+      transition: background 0.2s !important;
+    }
+    .footer-social-link:hover { background: rgba(212,150,83,0.2) !important; }
+
+    .footer-bottom {
+      max-width: 1180px; margin: 0 auto;
+      padding-top: 2rem; border-top: 1px solid rgba(212,150,83,0.1);
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .footer-bottom p { font-size: 0.75rem; color: rgba(240,232,220,0.25); }
+
+    /* ═══════════════════════════════════
+       PAGE 2 — MENU PAGE
+    ═══════════════════════════════════ */
+    .menu-hero {
+      padding: 8rem 2rem 5rem;
+      background:
+        linear-gradient(160deg, rgba(14,8,3,0.92) 0%, rgba(139,26,26,0.35) 60%, rgba(14,8,3,0.88) 100%),
+        url('https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Menu.jpg') center/cover no-repeat;
+      text-align: center; border-bottom: 1px solid rgba(212,150,83,0.25);
+    }
+    .menu-hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      font-weight: 300; font-style: italic;
+      color: var(--cream); line-height: 1;
+      margin: 0.75rem 0;
+    }
+    .menu-hero p { font-size: 0.95rem; color: rgba(240,232,220,0.6); font-weight: 300; letter-spacing: 0.06em; }
+
+    .menu-body { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 6rem; }
+
+    .menu-section { margin-bottom: 4.5rem; }
+
+    .menu-section-head {
+      display: flex; align-items: baseline; gap: 1.25rem;
+      margin-bottom: 2rem; padding-bottom: 0.75rem;
+      border-bottom: 1px solid rgba(28,18,8,0.1);
+    }
+    .menu-section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 400; font-style: italic;
+      color: var(--text-dark);
+    }
+    .menu-section-count {
+      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-muted);
+    }
+
+    .menu-items-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+      background: rgba(28,18,8,0.07); border-radius: 6px; overflow: hidden;
+    }
+
+    .menu-entry {
+      background: var(--cream);
+      padding: 1.25rem 1.5rem;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1.25rem;
+      transition: background 0.2s;
+    }
+    .menu-entry:hover { background: #fffdf9; }
+    .menu-entry-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.98rem; font-weight: 600; color: var(--text-dark);
+      margin-bottom: 0.25rem;
+    }
+    .menu-entry-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+    .menu-entry-price { font-size: 1rem; font-weight: 700; color: var(--gold-dk); white-space: nowrap; flex-shrink: 0; }
+
+    /* Signature menu entry */
+    .menu-entry.signature-entry {
+      grid-column: 1 / -1;
+      background: linear-gradient(110deg, var(--dark) 0%, var(--dark-warm) 100%);
+      border: 1px solid rgba(212,150,83,0.35);
+      padding: 1.75rem 1.75rem;
+      align-items: center;
+    }
+    .menu-entry.signature-entry:hover { background: linear-gradient(110deg, #1a0e06 0%, #36291a 100%); }
+    .menu-entry.signature-entry .menu-entry-name { font-size: 1.25rem; color: var(--gold-lt); }
+    .menu-entry.signature-entry .menu-entry-desc { color: rgba(240,232,220,0.6); font-size: 0.83rem; }
+    .menu-entry.signature-entry .menu-entry-price { color: var(--gold); font-size: 1.2rem; }
+    .sig-badge {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      background: var(--gold); color: var(--dark);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.55rem; border-radius: 2px; margin-bottom: 0.4rem;
+    }
+
+    /* Order CTA on menu page */
+    .menu-order-cta {
+      background: var(--dark);
+      border: 1px solid rgba(212,150,83,0.2);
+      border-radius: 8px; padding: 4rem;
+      text-align: center; margin-top: 2rem;
+    }
+    .menu-order-cta h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.75rem; font-style: italic; font-weight: 300; color: var(--cream);
+      margin-bottom: 0.6rem;
+    }
+    .menu-order-cta p { font-size: 0.9rem; color: rgba(240,232,220,0.55); margin-bottom: 2rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .dishes-grid { grid-template-columns: repeat(2, 1fr); }
+      .dish-card.featured { grid-column: span 1; }
+      .drinks-grid { grid-template-columns: 1fr 1fr; }
       .footer-inner { grid-template-columns: 1fr 1fr; }
-      .footer-brand { grid-column: 1 / -1; }
+      .heritage-inner { grid-template-columns: 1fr 1fr 1fr; gap: 2rem; }
+      .heritage-divider { display: none; }
     }
 
-    @media (max-width: 680px) {
-      .navbar { padding: 0 1rem; }
-      .nav-links {
-        position: fixed;
-        top: 72px; left: 0; right: 0;
-        background: var(--dark);
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1.25rem 1.5rem;
-        gap: 0.25rem;
-        border-bottom: 3px solid var(--gold);
-        transform: translateY(-120%);
-        opacity: 0;
-        transition: transform 0.3s, opacity 0.3s;
-        z-index: 999;
-      }
-      .nav-links.open { transform: translateY(0); opacity: 1; }
-      .nav-links a { width: 100%; padding: 0.6rem 0.5rem; font-size: 1rem; }
+    @media (max-width: 768px) {
+      .nav-center { display: none; }
+      .nav-right .nav-btn-menu { display: none; }
       .nav-hamburger { display: flex; }
 
-      .features-inner { grid-template-columns: 1fr 1fr; }
+      .about-inner, .menu-feature-inner, .location-inner { grid-template-columns: 1fr; }
+      .about-image { order: -1; min-height: 300px; }
+      .about-content { padding: 3rem 2rem; }
+      .menu-feature-content { padding: 3rem 2rem; }
+      .location-content { padding: 3rem 2rem; }
 
-      .menu-grid { grid-template-columns: 1fr; }
-      .menu-item.signature { grid-column: 1; }
+      .drinks-grid { grid-template-columns: 1fr; }
+      .dishes-grid { grid-template-columns: 1fr 1fr; }
 
-      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .footer-bottom { flex-direction: column; text-align: center; }
+      .testimonials-grid { grid-template-columns: 1fr; }
+
+      .heritage-inner { grid-template-columns: 1fr; gap: 2.5rem; text-align: center; }
+
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+
+      .menu-items-grid { grid-template-columns: 1fr; }
+      .menu-entry.signature-entry { grid-column: 1; }
+
+      .catering-content {
+        max-width: 100%;
+        margin-left: 0;
+        padding: 4rem 2rem;
+      }
     }
 
-    @media (max-width: 420px) {
-      .features-inner { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
-      .feature-item p { display: none; }
+    @media (max-width: 480px) {
+      .dishes-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 4rem; }
+      .nav { padding: 0 1.25rem; }
+      .trust-bar-inner { gap: 1.5rem; }
+      .trust-divider { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .menu-order-cta { padding: 2.5rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════
-     NAVBAR (shared, always visible)
-═══════════════════════════════════════ -->
-<nav class="navbar" id="navbar">
-  <a class="nav-logo" onclick="showPage('home')" style="cursor:pointer;">
-    <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/El-Molcajete-Logo.png"
-         alt="El Molcajete Logo" />
-  </a>
-
-  <div class="nav-hamburger" id="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+<!-- ═══════════════════════════════ NAVBAR ═══ -->
+<nav class="nav" id="navbar">
+  <div class="nav-logo" onclick="showPage('home')">
+    <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/El-Molcajete-Logo.png" alt="El Molcajete" />
   </div>
 
-  <ul class="nav-links" id="navLinks">
-    <li><a id="nav-home"   onclick="showPage('home')">Home</a></li>
-    <li><a id="nav-menu"   onclick="showPage('menu')">Menu</a></li>
-    <li><a href="https://molcajetemexrestaurant.com/catering/" target="_blank">Catering</a></li>
-    <li><a href="https://www.toasttab.com/el-molcajete-lewis-center" target="_blank" class="btn-order">Order Online</a></li>
-    <li><a href="tel:6149877351">Contact</a></li>
-  </ul>
+  <div class="nav-center">
+    <a id="nav-home" onclick="showPage('home')" class="active">Home</a>
+    <a id="nav-menu" onclick="showPage('menu')">Menu</a>
+    <a href="https://molcajetemexrestaurant.com/catering/" target="_blank">Catering</a>
+    <a href="tel:6149877351">Contact</a>
+  </div>
+
+  <div class="nav-right">
+    <button class="nav-btn-menu" onclick="showPage('menu')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      Menu
+    </button>
+    <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="nav-btn-order">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Order Online
+    </a>
+    <div class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
 </nav>
 
+<!-- Mobile nav -->
+<div class="nav-mobile-menu" id="mobileMenu">
+  <a onclick="showPage('home')">Home</a>
+  <a onclick="showPage('menu')">Menu</a>
+  <a href="https://molcajetemexrestaurant.com/catering/" target="_blank">Catering</a>
+  <a href="tel:6149877351">Contact — (614) 987-7351</a>
+  <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="mob-order">Order Online</a>
+</div>
 
-<!-- ═══════════════════════════════════════
-     PAGE 1 — HOMEPAGE
-═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════ PAGE 1 — HOME ═══ -->
 <div class="page active" id="page-home">
 
   <!-- HERO -->
   <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
     <div class="hero-content">
-      <div class="hero-eyebrow">Lewis Center, Ohio</div>
-      <h1>Authentic <em>Mexican</em><br>Cuisine</h1>
-      <p>Fresh ingredients, bold flavors, and warm hospitality — right here in Lewis Center.</p>
+      <div class="hero-label">Lewis Center, Ohio</div>
+      <h1>
+        <span>bold flavors</span>
+        <span class="accent">that linger</span>
+      </h1>
+      <p class="hero-sub">Authentic Mexican Cuisine — Fresh, Bold & Made with Heart</p>
       <div class="hero-btns">
-        <button class="btn-primary" onclick="showPage('menu')">View Menu</button>
-        <a class="btn-outline" href="https://www.toasttab.com/el-molcajete-lewis-center" target="_blank">Order Online</a>
+        <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="btn-gold">Order Online</a>
+        <button class="btn-ghost" onclick="showPage('menu')">View Menu</button>
       </div>
+      <div class="hero-rating">
+        <div class="hero-rating-stars">★★★★★</div>
+        <div class="hero-rating-divider"></div>
+        <div class="hero-rating-text">4.7 on Google &nbsp;·&nbsp; 500+ Reviews</div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-hint-line"></div>
     </div>
   </section>
 
-  <!-- FEATURES STRIP -->
-  <div class="features-strip">
-    <div class="features-inner">
-      <div class="feature-item">
-        <div class="feature-icon">🌿</div>
-        <h4>Fresh Ingredients</h4>
-        <p>Sourced daily, never frozen</p>
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="trust-bar-inner">
+      <div class="trust-item">
+        <div class="trust-item-icon">🌿</div>
+        <div class="trust-item-text"><strong>Fresh Daily</strong>Never frozen, always made in-house</div>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">🏡</div>
-        <h4>Family Owned</h4>
-        <p>Recipes passed through generations</p>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">🏡</div>
+        <div class="trust-item-text"><strong>Family Owned</strong>Recipes passed through generations</div>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">⚡</div>
-        <h4>Fast Service</h4>
-        <p>Hot food, happy people</p>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">🍽️</div>
+        <div class="trust-item-text"><strong>Dine-in & Takeout</strong>76 W Powell Rd, Lewis Center</div>
       </div>
-      <div class="feature-item">
-        <div class="feature-icon">🍽️</div>
-        <h4>Dine-in & Takeout</h4>
-        <p>Your way, every time</p>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <div class="trust-item-icon">⚡</div>
+        <div class="trust-item-text"><strong>Open 7 Days</strong>Mon–Sun, 11AM onwards</div>
       </div>
     </div>
   </div>
 
-  <!-- MENU TEASER -->
-  <section class="section menu-teaser">
-    <div class="section-inner">
-      <div class="section-header">
-        <div class="section-label">Explore the Kitchen</div>
-        <h2 class="section-title">Something for Everyone</h2>
-        <p class="section-sub">From sizzling tacos to hand-crafted margaritas — every dish tells a story.</p>
+  <!-- SIGNATURE DISHES -->
+  <section class="signature">
+    <div class="signature-inner">
+      <div class="signature-head">
+        <div class="section-label-sm">From Our Kitchen</div>
+        <div class="section-heading">
+          <span>signature</span>
+          <span class="em">dishes</span>
+        </div>
       </div>
-      <div class="category-grid">
-        <div class="category-card" onclick="showPage('menu')">
-          <div class="category-visual tacos">🌮</div>
-          <div class="category-body">
-            <h3>Tacos</h3>
-            <p>Carne Asada, Pollo, Carnitas & more — served with fresh toppings on warm tortillas.</p>
-            <span class="link-menu">See Full Menu</span>
+
+      <div class="dishes-grid">
+        <!-- Featured: Molcajete -->
+        <div class="dish-card featured">
+          <div class="dish-card-img dish-bg-1">
+            <div class="dish-badge">Chef's Signature</div>
+            <div class="dish-card-img-placeholder">🫕</div>
+            <div class="dish-card-img-overlay"></div>
+          </div>
+          <div class="dish-card-body">
+            <div class="dish-card-name">Molcajete</div>
+            <div class="dish-card-desc">Volcanic stone bowl filled with grilled steak, chicken & shrimp simmering in house ranchera sauce with cactus, jalapeños & queso fresco. Served tableside, still sizzling.</div>
+            <div class="dish-card-footer">
+              <span class="dish-price">$28.99</span>
+              <span class="dish-order-link">Order Now</span>
+            </div>
           </div>
         </div>
-        <div class="category-card" onclick="showPage('menu')">
-          <div class="category-visual burritos">🌯</div>
-          <div class="category-body">
-            <h3>Burritos</h3>
-            <p>Generous portions loaded with seasoned meats, rice, beans, and house sauces.</p>
-            <span class="link-menu">See Full Menu</span>
+
+        <!-- Tacos -->
+        <div class="dish-card">
+          <div class="dish-card-img dish-bg-2">
+            <div class="dish-card-img-placeholder">🌮</div>
+            <div class="dish-card-img-overlay"></div>
+          </div>
+          <div class="dish-card-body">
+            <div class="dish-card-name">Carne Asada Tacos</div>
+            <div class="dish-card-desc">Grilled marinated steak, onion, cilantro & salsa verde on warm corn tortillas.</div>
+            <div class="dish-card-footer">
+              <span class="dish-price">$13.99</span>
+              <span class="dish-order-link">Order Now</span>
+            </div>
           </div>
         </div>
-        <div class="category-card" onclick="showPage('menu')">
-          <div class="category-visual drinks">🍹</div>
-          <div class="category-body">
-            <h3>Drinks</h3>
-            <p>Craft margaritas, ice-cold Jarritos, Horchata, and a rotating beer selection.</p>
-            <span class="link-menu">See Full Menu</span>
+
+        <!-- Fajitas -->
+        <div class="dish-card">
+          <div class="dish-card-img dish-bg-3">
+            <div class="dish-card-img-placeholder">🥩</div>
+            <div class="dish-card-img-overlay"></div>
+          </div>
+          <div class="dish-card-body">
+            <div class="dish-card-name">Sizzling Fajitas</div>
+            <div class="dish-card-desc">Skillet of grilled meat & peppers with tortillas, guacamole, sour cream & pico.</div>
+            <div class="dish-card-footer">
+              <span class="dish-price">$18.99</span>
+              <span class="dish-order-link">Order Now</span>
+            </div>
           </div>
         </div>
-        <div class="category-card" onclick="showPage('menu')">
-          <div class="category-visual specials">⭐</div>
-          <div class="category-body">
-            <h3>Specials</h3>
-            <p>Signature Molcajete, Fajitas, Chile Relleno — chef-crafted dishes you won't forget.</p>
-            <span class="link-menu">See Full Menu</span>
+
+        <!-- Enchiladas -->
+        <div class="dish-card">
+          <div class="dish-card-img dish-bg-4">
+            <div class="dish-card-img-placeholder">🫔</div>
+            <div class="dish-card-img-overlay"></div>
+          </div>
+          <div class="dish-card-body">
+            <div class="dish-card-name">Enchiladas</div>
+            <div class="dish-card-desc">Corn tortillas stuffed with your choice of filling, smothered in house red or green sauce.</div>
+            <div class="dish-card-footer">
+              <span class="dish-price">From $12.99</span>
+              <span class="dish-order-link">Order Now</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- REVIEWS -->
-  <section class="section reviews">
-    <div class="section-inner">
-      <div class="section-header">
-        <div class="section-label">What People Say</div>
-        <h2 class="section-title">Loved by Lewis Center</h2>
-        <p class="section-sub">Don't take our word for it — here's what our guests are saying.</p>
+  <!-- ABOUT / PHILOSOPHY -->
+  <section class="about">
+    <div class="about-inner">
+      <div class="about-image">
+        <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Molcajete-Location.jpg" alt="El Molcajete Restaurant" loading="lazy" />
+        <div class="about-image-overlay"></div>
       </div>
-      <div class="reviews-grid">
+      <div class="about-content">
+        <div class="section-label-sm">Our Story</div>
+        <div class="section-heading light">
+          <span>the molcajete</span>
+          <span class="em-light">way</span>
+        </div>
+        <p class="section-sub light">
+          Every dish at El Molcajete starts with a simple belief — real Mexican food deserves real ingredients. No shortcuts. No frozen shortcuts. Just bold, honest cooking rooted in tradition, served warm in Lewis Center.
+        </p>
+        <div class="about-quote">
+          <p>"From complimentary salsa and chips to the last bite of flan — every detail is crafted to make you feel at home."</p>
+        </div>
+        <div class="about-actions">
+          <a href="https://molcajetemexrestaurant.com/about/" target="_blank" class="btn-ghost">Our Story</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU FEATURE -->
+  <section class="menu-feature">
+    <div class="menu-feature-inner">
+      <div class="menu-feature-content">
+        <div class="section-label-sm">Explore the Menu</div>
+        <div class="section-heading">
+          <span>crafted with</span>
+          <span class="em">bold intention</span>
+        </div>
+        <p class="section-sub">
+          From street-style tacos to our legendary Molcajete, the full menu is a love letter to Mexican culinary tradition. Explore every section — appetizers, mains, drinks, and desserts.
+        </p>
+        <div class="menu-feature-actions">
+          <button class="btn-dark" onclick="showPage('menu')">View Full Menu</button>
+          <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="btn-outline-dark">Order Online</a>
+        </div>
+      </div>
+      <div class="menu-feature-image">
+        <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Menu.jpg" alt="El Molcajete Menu" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CATERING FULL-BLEED -->
+  <section class="catering">
+    <div class="catering-bg"></div>
+    <div class="catering-overlay"></div>
+    <div class="catering-content">
+      <div class="section-label-sm">Events & Gatherings</div>
+      <div class="section-heading light">
+        <span>catering</span>
+        <span class="em-light">done right</span>
+      </div>
+      <p class="section-sub light">
+        Birthdays, corporate events, weddings — we bring the bold flavors of El Molcajete to your table. Custom menus, fresh ingredients, delivered with the same care we put into every dish.
+      </p>
+      <a href="https://molcajetemexrestaurant.com/catering/" target="_blank" class="btn-gold" style="margin-top:2rem;display:inline-block;">Plan Your Event</a>
+    </div>
+  </section>
+
+  <!-- DRINKS -->
+  <section class="drinks">
+    <div class="drinks-inner">
+      <div class="drinks-head">
+        <div class="section-label-sm">The Bar</div>
+        <div class="section-heading">
+          <span>drinks that complete</span>
+          <span class="em">the experience</span>
+        </div>
+      </div>
+      <div class="drinks-grid">
+        <div class="drink-card">
+          <div class="drink-card-inner">
+            <div class="drink-card-placeholder drink-ph-1" style="min-height:400px;display:flex;align-items:flex-end;">
+              <div class="drink-card-overlay"></div>
+              <div class="drink-card-content">
+                <div class="drink-card-name">Craft Margaritas</div>
+                <div class="drink-card-sub">Classic · Mango · Strawberry · Spicy</div>
+                <div class="drink-price">From $9.99</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-card-inner">
+            <div class="drink-card-placeholder drink-ph-2" style="min-height:340px;display:flex;align-items:flex-end;">
+              <div class="drink-card-overlay"></div>
+              <div class="drink-card-content">
+                <div class="drink-card-name">Horchata</div>
+                <div class="drink-card-sub">Housemade rice milk with cinnamon & vanilla</div>
+                <div class="drink-price">$3.99</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="drink-card">
+          <div class="drink-card-inner">
+            <div class="drink-card-placeholder drink-ph-3" style="min-height:340px;display:flex;align-items:flex-end;">
+              <div class="drink-card-overlay"></div>
+              <div class="drink-card-content">
+                <div class="drink-card-name">Jarritos & Beer</div>
+                <div class="drink-card-sub">Modelo · Corona · Jarritos · Seasonal Selects</div>
+                <div class="drink-price">From $2.99</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HERITAGE STRIP -->
+  <section class="heritage">
+    <div class="heritage-inner">
+      <div class="heritage-item">
+        <div class="heritage-num">500+</div>
+        <div class="heritage-label">Happy Reviews</div>
+      </div>
+      <div class="heritage-divider"></div>
+      <div class="heritage-item">
+        <div class="heritage-num">4.7</div>
+        <div class="heritage-label">Stars on Google</div>
+      </div>
+      <div class="heritage-divider"></div>
+      <div class="heritage-item">
+        <div class="heritage-num">7</div>
+        <div class="heritage-label">Days a Week</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="testimonials-bg"></div>
+    <div class="testimonials-overlay"></div>
+    <div class="testimonials-inner">
+      <div class="testimonials-head">
+        <div class="section-label-sm" style="color:var(--gold)">What Our Guests Say</div>
+        <div class="section-heading light">
+          <span>loved by</span>
+          <span class="em-light">lewis center</span>
+        </div>
+      </div>
+      <div class="testimonials-grid">
         <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"Best Mexican food in the Columbus area, hands down. The Molcajete is unlike anything I've had before — so much flavor and the presentation is incredible. We come here every weekend."</p>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Best Mexican food in the Columbus area, hands down. The Molcajete is unlike anything I've had — so much flavor and the presentation is incredible. We come here every weekend."</p>
           <div class="review-author">
-            <div class="author-avatar avatar-d">D</div>
+            <div class="review-avatar av-r">D</div>
             <div>
-              <div class="author-name">Dylan</div>
-              <div class="author-tag">Local Guide · Google Review</div>
+              <div class="review-name">Dylan</div>
+              <div class="review-tag">Local Guide · Google Review</div>
             </div>
           </div>
         </div>
         <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"The food was fresh, the service was fast and friendly, and the portions are generous. The carnitas tacos are my go-to but everything on the menu is worth trying. Highly recommend!"</p>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"The food was fresh, the service was fast and friendly, and the portions are so generous. The carnitas tacos are my go-to but everything on the menu is worth trying."</p>
           <div class="review-author">
-            <div class="author-avatar avatar-t">T</div>
+            <div class="review-avatar av-g">T</div>
             <div>
-              <div class="author-name">Taunya</div>
-              <div class="author-tag">Verified Diner · Google Review</div>
+              <div class="review-name">Taunya</div>
+              <div class="review-tag">Verified Diner · Google Review</div>
             </div>
           </div>
         </div>
         <div class="review-card">
-          <div class="stars">★★★★★</div>
-          <p class="review-text">"Absolutely love this place! The margaritas are amazing and the guacamole is made fresh right in front of you. It's our family's favorite spot — the kids love the nachos and we love everything else."</p>
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Absolutely love this place! The margaritas are amazing and the guacamole is made fresh. It's our family's favorite spot — the kids love it and we love everything else."</p>
           <div class="review-author">
-            <div class="author-avatar avatar-e">E</div>
+            <div class="review-avatar av-b">E</div>
             <div>
-              <div class="author-name">Emily</div>
-              <div class="author-tag">Regular Guest · Google Review</div>
+              <div class="review-name">Emily</div>
+              <div class="review-tag">Regular Guest · Google Review</div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION -->
+  <section class="location">
+    <div class="location-inner">
+      <div class="location-content">
+        <div class="section-label-sm">Find Us</div>
+        <div class="section-heading">
+          <span>visit us in</span>
+          <span class="em">lewis center</span>
+        </div>
+        <div class="location-details">
+          <div class="loc-item">
+            <div class="loc-icon">📍</div>
+            <div>
+              <div class="loc-label">Address</div>
+              <div class="loc-value">76 W Powell Rd<br>Lewis Center, OH 43035</div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">📞</div>
+            <div>
+              <div class="loc-label">Phone</div>
+              <div class="loc-value"><a href="tel:6149877351">(614) 987-7351</a></div>
+            </div>
+          </div>
+          <div class="loc-item">
+            <div class="loc-icon">🕐</div>
+            <div>
+              <div class="loc-label">Hours</div>
+              <div class="loc-value">
+                Mon – Thu &nbsp;&nbsp;11AM – 10PM<br>
+                Fri – Sat &nbsp;&nbsp;&nbsp;&nbsp;11AM – 10:30PM<br>
+                Sunday &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;11AM – 9PM
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="location-actions">
+          <a href="https://www.google.com/maps/search/El+Molcajete+Lewis+Center+OH" target="_blank" class="btn-dark">Get Directions</a>
+          <a href="tel:6149877351" class="btn-outline-dark">Call Now</a>
+        </div>
+      </div>
+      <div class="location-image">
+        <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/Contact-1.jpg" alt="El Molcajete Location" loading="lazy" />
       </div>
     </div>
   </section>
@@ -972,307 +1235,273 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/El-Molcajete-Logo.png"
-             alt="El Molcajete Logo" />
-        <p>Authentic Mexican cuisine crafted with passion and fresh ingredients — serving Lewis Center since day one.</p>
+        <div class="footer-brand-logo">
+          <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/El-Molcajete-Logo.png" alt="El Molcajete" />
+        </div>
+        <p>Authentic Mexican cuisine crafted with passion and fresh ingredients — serving Lewis Center, Ohio with bold flavors and warm hospitality.</p>
       </div>
       <div class="footer-col">
-        <h4>Visit Us</h4>
+        <h5>Navigate</h5>
+        <a onclick="showPage('home')" style="cursor:pointer;">Home</a>
+        <a onclick="showPage('menu')" style="cursor:pointer;">Menu</a>
+        <a href="https://molcajetemexrestaurant.com/catering/" target="_blank">Catering</a>
+        <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank">Order Online</a>
+      </div>
+      <div class="footer-col">
+        <h5>Visit Us</h5>
         <p>76 W Powell Rd</p>
         <p>Lewis Center, OH 43035</p>
         <a href="tel:6149877351">(614) 987-7351</a>
-        <a href="https://www.facebook.com/ElMolcajeteOH" target="_blank" class="footer-social">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <a href="https://www.facebook.com/ElMolcajeteOH" target="_blank" class="footer-social-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           Facebook
         </a>
       </div>
       <div class="footer-col">
-        <h4>Hours</h4>
-        <p>Mon – Thu &nbsp;11AM – 10PM</p>
-        <p>Fri – Sat &nbsp;&nbsp;11AM – 10:30PM</p>
-        <p>Sunday &nbsp;&nbsp;&nbsp;11AM – 9PM</p>
+        <h5>Hours</h5>
+        <p>Mon–Thu &nbsp;11AM–10PM</p>
+        <p>Fri–Sat &nbsp;&nbsp;&nbsp;11AM–10:30PM</p>
+        <p>Sunday &nbsp;&nbsp;&nbsp;11AM–9PM</p>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2024 El Molcajete Mexican Restaurant & Bar. All rights reserved.</p>
-      <p>76 W Powell Rd, Lewis Center, OH 43035</p>
+      <p>Lewis Center, OH 43035</p>
     </div>
   </footer>
 
 </div><!-- /page-home -->
 
-
-<!-- ═══════════════════════════════════════
-     PAGE 2 — MENU
-═══════════════════════════════════════ -->
+<!-- ═══════════════════════════════ PAGE 2 — MENU ═══ -->
 <div class="page" id="page-menu">
 
-  <div class="menu-page-header">
-    <div class="eyebrow">El Molcajete Kitchen</div>
+  <div class="menu-hero">
+    <div class="section-label-sm" style="color:var(--gold)">El Molcajete Kitchen</div>
     <h1>Our Menu</h1>
-    <p>Made fresh daily with authentic recipes.</p>
+    <p>Made fresh daily — authentic recipes, bold flavors, no shortcuts.</p>
   </div>
 
-  <div class="menu-content">
+  <div class="menu-body">
 
     <!-- APPETIZERS -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Appetizers</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Guacamole</div>
-            <div class="menu-item-desc">Fresh avocado, lime, cilantro, tomato, onion — served with house chips</div>
-          </div>
-          <div class="menu-item-price">$9.99</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Appetizers</div>
+        <div class="menu-section-count">4 items</div>
+      </div>
+      <div class="menu-items-grid">
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Guacamole</div><div class="menu-entry-desc">Fresh avocado, lime, cilantro, tomato, onion — served with house chips</div></div>
+          <div class="menu-entry-price">$9.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Queso Dip</div>
-            <div class="menu-item-desc">Creamy melted white queso with jalapeños and roasted peppers</div>
-          </div>
-          <div class="menu-item-price">$7.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Queso Dip</div><div class="menu-entry-desc">Creamy melted white queso with jalapeños and roasted peppers</div></div>
+          <div class="menu-entry-price">$7.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Nachos</div>
-            <div class="menu-item-desc">Crispy chips loaded with beans, cheese, pico, sour cream, and jalapeños</div>
-          </div>
-          <div class="menu-item-price">$11.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Nachos</div><div class="menu-entry-desc">Crispy chips loaded with beans, cheese, pico, sour cream, and jalapeños</div></div>
+          <div class="menu-entry-price">$11.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Elote</div>
-            <div class="menu-item-desc">Grilled street corn with cotija cheese, mayo, chili powder, and lime</div>
-          </div>
-          <div class="menu-item-price">$6.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Elote</div><div class="menu-entry-desc">Grilled street corn with cotija cheese, mayo, chili powder, and lime</div></div>
+          <div class="menu-entry-price">$6.99</div>
         </div>
       </div>
     </div>
 
     <!-- TACOS -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Tacos</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Carne Asada</div>
-            <div class="menu-item-desc">Grilled marinated flank steak, onion, cilantro, salsa verde — 2 tacos</div>
-          </div>
-          <div class="menu-item-price">$13.99</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Tacos</div>
+        <div class="menu-section-count">4 items · served 2 per order</div>
+      </div>
+      <div class="menu-items-grid">
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Carne Asada</div><div class="menu-entry-desc">Grilled marinated flank steak, onion, cilantro, salsa verde on corn tortilla</div></div>
+          <div class="menu-entry-price">$13.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Pollo</div>
-            <div class="menu-item-desc">Seasoned grilled chicken, pico de gallo, avocado cream — 2 tacos</div>
-          </div>
-          <div class="menu-item-price">$12.49</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Pollo</div><div class="menu-entry-desc">Seasoned grilled chicken, pico de gallo, avocado cream on flour or corn tortilla</div></div>
+          <div class="menu-entry-price">$12.49</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Carnitas</div>
-            <div class="menu-item-desc">Slow-braised pork, pickled red onion, cilantro, salsa roja — 2 tacos</div>
-          </div>
-          <div class="menu-item-price">$12.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Carnitas</div><div class="menu-entry-desc">Slow-braised pork, pickled red onion, cilantro, salsa roja</div></div>
+          <div class="menu-entry-price">$12.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Veggie</div>
-            <div class="menu-item-desc">Grilled peppers, black beans, corn, avocado, queso fresco — 2 tacos</div>
-          </div>
-          <div class="menu-item-price">$10.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Veggie</div><div class="menu-entry-desc">Grilled peppers, black beans, corn, avocado, queso fresco</div></div>
+          <div class="menu-entry-price">$10.99</div>
         </div>
       </div>
     </div>
 
     <!-- BURRITOS -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Burritos</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Classic Burrito</div>
-            <div class="menu-item-desc">Choice of protein, rice, beans, cheese, sour cream, and salsa in a flour tortilla</div>
-          </div>
-          <div class="menu-item-price">$13.99</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Burritos</div>
+        <div class="menu-section-count">3 items</div>
+      </div>
+      <div class="menu-items-grid">
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Classic Burrito</div><div class="menu-entry-desc">Choice of protein, rice, beans, cheese, sour cream, salsa in flour tortilla</div></div>
+          <div class="menu-entry-price">$13.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Wet Burrito</div>
-            <div class="menu-item-desc">Classic burrito smothered in red enchilada sauce and melted cheese</div>
-          </div>
-          <div class="menu-item-price">$15.49</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Wet Burrito</div><div class="menu-entry-desc">Classic burrito smothered in red enchilada sauce and melted cheese</div></div>
+          <div class="menu-entry-price">$15.49</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Burrito Bowl</div>
-            <div class="menu-item-desc">All the burrito flavors over cilantro-lime rice, no tortilla — your way</div>
-          </div>
-          <div class="menu-item-price">$13.49</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Burrito Bowl</div><div class="menu-entry-desc">All the burrito flavors over cilantro-lime rice, no tortilla — your way</div></div>
+          <div class="menu-entry-price">$13.49</div>
         </div>
+        <div class="menu-entry" style="background:transparent;border:none;"></div>
       </div>
     </div>
 
     <!-- ENCHILADAS -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Enchiladas</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Cheese Enchiladas</div>
-            <div class="menu-item-desc">Three corn tortillas stuffed with melted cheese, topped with red sauce — served with rice & beans</div>
-          </div>
-          <div class="menu-item-price">$12.99</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Enchiladas</div>
+        <div class="menu-section-count">3 items · served with rice & beans</div>
+      </div>
+      <div class="menu-items-grid">
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Cheese Enchiladas</div><div class="menu-entry-desc">Three corn tortillas stuffed with melted cheese, topped with red sauce</div></div>
+          <div class="menu-entry-price">$12.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Chicken Enchiladas</div>
-            <div class="menu-item-desc">Shredded chicken, green tomatillo sauce, sour cream, cotija cheese</div>
-          </div>
-          <div class="menu-item-price">$14.49</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Chicken Enchiladas</div><div class="menu-entry-desc">Shredded chicken, green tomatillo sauce, sour cream, cotija cheese</div></div>
+          <div class="menu-entry-price">$14.49</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Beef Enchiladas</div>
-            <div class="menu-item-desc">Seasoned ground beef, red mole sauce, melted Oaxacan cheese blend</div>
-          </div>
-          <div class="menu-item-price">$14.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Beef Enchiladas</div><div class="menu-entry-desc">Seasoned ground beef, red mole sauce, melted Oaxacan cheese blend</div></div>
+          <div class="menu-entry-price">$14.99</div>
         </div>
+        <div class="menu-entry" style="background:transparent;border:none;"></div>
       </div>
     </div>
 
     <!-- SPECIALTIES -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Specialties</h2>
-      <div class="menu-grid">
-
-        <!-- SIGNATURE DISH -->
-        <div class="menu-item signature">
-          <div class="menu-item-info">
-            <div class="signature-badge">⭐ Chef's Signature</div>
-            <div class="menu-item-name">Molcajete</div>
-            <div class="menu-item-desc">Our namesake dish — a volcanic stone bowl filled with grilled steak, chicken, and shrimp, simmering in a rich house ranchera sauce with cactus, jalapeños, onion, and queso fresco. Served tableside, still sizzling. An experience, not just a meal.</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Specialties</div>
+        <div class="menu-section-count">3 items</div>
+      </div>
+      <div class="menu-items-grid">
+        <!-- SIGNATURE -->
+        <div class="menu-entry signature-entry">
+          <div>
+            <div class="sig-badge">⭐ Chef's Signature</div>
+            <div class="menu-entry-name">Molcajete</div>
+            <div class="menu-entry-desc">A volcanic stone bowl filled with grilled steak, chicken, and shrimp, simmering in rich house ranchera sauce with cactus, jalapeños, onion & queso fresco. Served tableside, still sizzling. An experience, not just a meal.</div>
           </div>
-          <div class="menu-item-price">$28.99</div>
+          <div class="menu-entry-price">$28.99</div>
         </div>
-
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Fajitas</div>
-            <div class="menu-item-desc">Sizzling skillet of grilled meat, peppers & onions with tortillas, guac, sour cream, pico</div>
-          </div>
-          <div class="menu-item-price">$18.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Fajitas</div><div class="menu-entry-desc">Sizzling skillet of grilled meat, peppers & onions with tortillas, guac, sour cream, pico</div></div>
+          <div class="menu-entry-price">$18.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Chile Relleno</div>
-            <div class="menu-item-desc">Fire-roasted poblano stuffed with cheese, battered and fried, topped with tomato sauce</div>
-          </div>
-          <div class="menu-item-price">$15.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Chile Relleno</div><div class="menu-entry-desc">Fire-roasted poblano stuffed with cheese, battered and fried, topped with tomato sauce</div></div>
+          <div class="menu-entry-price">$15.99</div>
         </div>
       </div>
     </div>
 
     <!-- DRINKS -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Drinks</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Margaritas</div>
-            <div class="menu-item-desc">Classic, Mango, Strawberry, or Spicy — on the rocks or frozen, salt or no salt</div>
-          </div>
-          <div class="menu-item-price">From $9.99</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Drinks</div>
+        <div class="menu-section-count">4 items</div>
+      </div>
+      <div class="menu-items-grid">
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Margaritas</div><div class="menu-entry-desc">Classic, Mango, Strawberry, or Spicy — on the rocks or frozen</div></div>
+          <div class="menu-entry-price">From $9.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Horchata</div>
-            <div class="menu-item-desc">Housemade rice milk with cinnamon and vanilla — sweet, creamy, refreshing</div>
-          </div>
-          <div class="menu-item-price">$3.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Horchata</div><div class="menu-entry-desc">Housemade rice milk with cinnamon and vanilla — sweet and refreshing</div></div>
+          <div class="menu-entry-price">$3.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Jarritos</div>
-            <div class="menu-item-desc">Authentic Mexican soda — Tamarind, Mandarin, Strawberry, or Jamaica</div>
-          </div>
-          <div class="menu-item-price">$2.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Jarritos</div><div class="menu-entry-desc">Authentic Mexican soda — Tamarind, Mandarin, Strawberry, or Jamaica</div></div>
+          <div class="menu-entry-price">$2.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Beer</div>
-            <div class="menu-item-desc">Modelo, Corona, Dos Equis, Pacifico — bottled or draft, ask your server</div>
-          </div>
-          <div class="menu-item-price">From $4.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Beer</div><div class="menu-entry-desc">Modelo, Corona, Dos Equis, Pacifico — bottled or draft, ask your server</div></div>
+          <div class="menu-entry-price">From $4.99</div>
         </div>
       </div>
     </div>
 
     <!-- DESSERTS -->
     <div class="menu-section">
-      <h2 class="menu-section-title">Desserts</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Churros</div>
-            <div class="menu-item-desc">Golden fried dough dusted with cinnamon sugar, served with chocolate dipping sauce</div>
-          </div>
-          <div class="menu-item-price">$6.99</div>
+      <div class="menu-section-head">
+        <div class="menu-section-title">Desserts</div>
+        <div class="menu-section-count">3 items</div>
+      </div>
+      <div class="menu-items-grid">
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Churros</div><div class="menu-entry-desc">Golden fried dough with cinnamon sugar, served with chocolate dipping sauce</div></div>
+          <div class="menu-entry-price">$6.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Flan</div>
-            <div class="menu-item-desc">Classic Mexican custard with rich caramel sauce and a pinch of vanilla</div>
-          </div>
-          <div class="menu-item-price">$5.99</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Flan</div><div class="menu-entry-desc">Classic Mexican custard with rich caramel sauce and a pinch of vanilla</div></div>
+          <div class="menu-entry-price">$5.99</div>
         </div>
-        <div class="menu-item">
-          <div class="menu-item-info">
-            <div class="menu-item-name">Sopapillas</div>
-            <div class="menu-item-desc">Pillowy fried pastry drizzled with honey and topped with powdered sugar</div>
-          </div>
-          <div class="menu-item-price">$5.49</div>
+        <div class="menu-entry">
+          <div><div class="menu-entry-name">Sopapillas</div><div class="menu-entry-desc">Pillowy fried pastry drizzled with honey and topped with powdered sugar</div></div>
+          <div class="menu-entry-price">$5.49</div>
         </div>
+        <div class="menu-entry" style="background:transparent;border:none;"></div>
       </div>
     </div>
 
-  </div><!-- /menu-content -->
+    <!-- ORDER CTA -->
+    <div class="menu-order-cta">
+      <h2>ready to order?</h2>
+      <p>Get it fresh — fast. Pick up or dine in, we've got you covered.</p>
+      <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank" class="btn-gold">Order Online Now</a>
+    </div>
 
-  <!-- ORDER CTA BANNER -->
-  <div class="order-cta">
-    <h2>Ready to order?</h2>
-    <p>Get it fresh — fast. Pick up or delivery, we've got you covered.</p>
-    <a class="btn-gold" href="https://www.toasttab.com/el-molcajete-lewis-center" target="_blank">Order Online</a>
-  </div>
+  </div><!-- /menu-body -->
 
-  <!-- FOOTER (same) -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/El-Molcajete-Logo.png"
-             alt="El Molcajete Logo" />
-        <p>Authentic Mexican cuisine crafted with passion and fresh ingredients — serving Lewis Center since day one.</p>
+        <div class="footer-brand-logo">
+          <img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/El-Molcajete-Logo.png" alt="El Molcajete" />
+        </div>
+        <p>Authentic Mexican cuisine crafted with passion and fresh ingredients — serving Lewis Center, Ohio with bold flavors and warm hospitality.</p>
       </div>
       <div class="footer-col">
-        <h4>Visit Us</h4>
+        <h5>Navigate</h5>
+        <a onclick="showPage('home')" style="cursor:pointer;">Home</a>
+        <a onclick="showPage('menu')" style="cursor:pointer;">Menu</a>
+        <a href="https://molcajetemexrestaurant.com/catering/" target="_blank">Catering</a>
+        <a href="https://orderonline.bistroux.com/menu/el-molcajete" target="_blank">Order Online</a>
+      </div>
+      <div class="footer-col">
+        <h5>Visit Us</h5>
         <p>76 W Powell Rd</p>
         <p>Lewis Center, OH 43035</p>
         <a href="tel:6149877351">(614) 987-7351</a>
-        <a href="https://www.facebook.com/ElMolcajeteOH" target="_blank" class="footer-social">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <a href="https://www.facebook.com/ElMolcajeteOH" target="_blank" class="footer-social-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
           Facebook
         </a>
       </div>
       <div class="footer-col">
-        <h4>Hours</h4>
-        <p>Mon – Thu &nbsp;11AM – 10PM</p>
-        <p>Fri – Sat &nbsp;&nbsp;11AM – 10:30PM</p>
-        <p>Sunday &nbsp;&nbsp;&nbsp;11AM – 9PM</p>
+        <h5>Hours</h5>
+        <p>Mon–Thu &nbsp;11AM–10PM</p>
+        <p>Fri–Sat &nbsp;&nbsp;&nbsp;11AM–10:30PM</p>
+        <p>Sunday &nbsp;&nbsp;&nbsp;11AM–9PM</p>
       </div>
     </div>
     <div class="footer-bottom">
       <p>© 2024 El Molcajete Mexican Restaurant & Bar. All rights reserved.</p>
-      <p>76 W Powell Rd, Lewis Center, OH 43035</p>
+      <p>Lewis Center, OH 43035</p>
     </div>
   </footer>
 
@@ -1284,31 +1513,37 @@
   function showPage(name) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.getElementById('page-' + name).classList.add('active');
-
-    // Active nav state
-    document.querySelectorAll('.nav-links a[id^="nav-"]').forEach(a => a.classList.remove('active'));
-    const activeLink = document.getElementById('nav-' + name);
-    if (activeLink) activeLink.classList.add('active');
-
-    // Scroll to top smoothly
+    ['home','menu'].forEach(id => {
+      const el = document.getElementById('nav-' + id);
+      if (el) el.classList.toggle('active', id === name);
+    });
     window.scrollTo({ top: 0, behavior: 'smooth' });
-
-    // Close mobile menu
-    document.getElementById('navLinks').classList.remove('open');
+    closeMobileMenu();
   }
 
-  // ── Sticky navbar shadow ──
-  window.addEventListener('scroll', function () {
-    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+  // ── Sticky navbar ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('solid', window.scrollY > 40);
   });
 
-  // ── Mobile menu toggle ──
-  function toggleMenu() {
-    document.getElementById('navLinks').classList.toggle('open');
+  // ── Mobile menu ──
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
   }
 
-  // ── Set initial active state ──
-  document.getElementById('nav-home').classList.add('active');
+  // ── Subtle parallax on hero bg ──
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < window.innerHeight) {
+        heroBg.style.transform = `scale(1.04) translateY(${y * 0.25}px)`;
+      }
+    }, { passive: true });
+  }
 </script>
 
 </body>
