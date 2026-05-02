@@ -785,62 +785,80 @@
     }
     .menu-hero p { font-size: 0.95rem; color: rgba(240,232,220,0.6); font-weight: 300; letter-spacing: 0.06em; }
 
-    .menu-body { max-width: 1100px; margin: 0 auto; padding: 5rem 2rem 6rem; }
+    .menu-body { max-width: 1200px; margin: 0 auto; padding: 5rem 2rem 6rem; }
 
-    .menu-section { margin-bottom: 4.5rem; }
+    .menu-section { margin-bottom: 5rem; }
 
     .menu-section-head {
       display: flex; align-items: baseline; gap: 1.25rem;
       margin-bottom: 2rem; padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(28,18,8,0.1);
+      border-bottom: 2px solid rgba(28,18,8,0.08);
     }
     .menu-section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 2rem; font-weight: 400; font-style: italic;
+      font-size: 2.2rem; font-weight: 400; font-style: italic;
       color: var(--text-dark);
     }
     .menu-section-count {
-      font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em;
       text-transform: uppercase; color: var(--text-muted);
     }
 
+    /* Photo card grid */
     .menu-items-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-      background: rgba(28,18,8,0.07); border-radius: 6px; overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
     }
 
-    .menu-entry {
+    .menu-card {
       background: var(--cream);
-      padding: 1.25rem 1.5rem;
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 1.25rem;
-      transition: background 0.2s;
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(28,18,8,0.07);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: default;
     }
-    .menu-entry:hover { background: #fffdf9; }
-    .menu-entry-name {
+    .menu-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(14,8,3,0.13); }
+
+    .menu-card-photo {
+      width: 100%; aspect-ratio: 4/3;
+      overflow: hidden; position: relative;
+      background: var(--cream-dk);
+    }
+    .menu-card-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+      display: block;
+    }
+    .menu-card:hover .menu-card-photo img { transform: scale(1.06); }
+
+    .menu-card-body { padding: 1rem 1.1rem 1.25rem; }
+    .menu-card-name {
       font-family: 'Playfair Display', serif;
       font-size: 0.98rem; font-weight: 600; color: var(--text-dark);
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.3rem; line-height: 1.3;
     }
-    .menu-entry-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
-    .menu-entry-price { font-size: 1rem; font-weight: 700; color: var(--gold-dk); white-space: nowrap; flex-shrink: 0; }
+    .menu-card-desc { font-size: 0.75rem; color: var(--text-muted); line-height: 1.55; margin-bottom: 0.7rem; }
+    .menu-card-price { font-size: 1rem; font-weight: 700; color: var(--gold-dk); }
 
-    /* Signature menu entry */
-    .menu-entry.signature-entry {
+    /* Signature card — full-width dark */
+    .menu-card.signature-card {
       grid-column: 1 / -1;
+      display: grid; grid-template-columns: 380px 1fr;
+      border: 1.5px solid rgba(212,150,83,0.35);
       background: linear-gradient(110deg, var(--dark) 0%, var(--dark-warm) 100%);
-      border: 1px solid rgba(212,150,83,0.35);
-      padding: 1.75rem 1.75rem;
-      align-items: center;
     }
-    .menu-entry.signature-entry:hover { background: linear-gradient(110deg, #1a0e06 0%, #36291a 100%); }
-    .menu-entry.signature-entry .menu-entry-name { font-size: 1.25rem; color: var(--gold-lt); }
-    .menu-entry.signature-entry .menu-entry-desc { color: rgba(240,232,220,0.6); font-size: 0.83rem; }
-    .menu-entry.signature-entry .menu-entry-price { color: var(--gold); font-size: 1.2rem; }
+    .menu-card.signature-card .menu-card-photo { aspect-ratio: unset; height: 100%; min-height: 240px; }
+    .menu-card.signature-card .menu-card-body { padding: 2rem 2.25rem; display: flex; flex-direction: column; justify-content: center; }
+    .menu-card.signature-card .menu-card-name { font-size: 1.6rem; color: var(--gold-lt); margin-bottom: 0.5rem; }
+    .menu-card.signature-card .menu-card-desc { font-size: 0.85rem; color: rgba(240,232,220,0.65); font-size: 0.88rem; margin-bottom: 1rem; }
+    .menu-card.signature-card .menu-card-price { font-size: 1.3rem; color: var(--gold); }
+
     .sig-badge {
       display: inline-flex; align-items: center; gap: 0.35rem;
       background: var(--gold); color: var(--dark);
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.2rem 0.55rem; border-radius: 2px; margin-bottom: 0.4rem;
+      padding: 0.25rem 0.6rem; border-radius: 2px; margin-bottom: 0.6rem; width: fit-content;
     }
 
     /* Order CTA on menu page */
@@ -891,8 +909,9 @@
 
       .footer-inner { grid-template-columns: 1fr 1fr; }
 
-      .menu-items-grid { grid-template-columns: 1fr; }
-      .menu-entry.signature-entry { grid-column: 1; }
+      .menu-items-grid { grid-template-columns: 1fr 1fr; }
+      .menu-card.signature-card { grid-template-columns: 1fr; }
+      .menu-card.signature-card .menu-card-photo { height: 220px; }
 
       .catering-content {
         max-width: 100%;
@@ -1339,21 +1358,37 @@
         <div class="menu-section-count">4 items</div>
       </div>
       <div class="menu-items-grid">
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Guacamole</div><div class="menu-entry-desc">Fresh avocado, lime, cilantro, tomato, onion — served with house chips</div></div>
-          <div class="menu-entry-price">$9.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/app20.jpg" alt="Guacamole" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Guacamole</div>
+            <div class="menu-card-desc">Fresh avocado, lime, cilantro, tomato, onion — served with house chips</div>
+            <div class="menu-card-price">$9.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Queso Dip</div><div class="menu-entry-desc">Creamy melted white queso with jalapeños and roasted peppers</div></div>
-          <div class="menu-entry-price">$7.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/app25.jpg" alt="Queso Dip" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Queso Dip</div>
+            <div class="menu-card-desc">Creamy melted white queso with jalapeños and roasted peppers</div>
+            <div class="menu-card-price">$7.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Nachos</div><div class="menu-entry-desc">Crispy chips loaded with beans, cheese, pico, sour cream, and jalapeños</div></div>
-          <div class="menu-entry-price">$11.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/nachos.jpg" alt="Nachos" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Nachos</div>
+            <div class="menu-card-desc">Crispy chips loaded with beans, cheese, pico, sour cream, and jalapeños</div>
+            <div class="menu-card-price">$11.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Elote</div><div class="menu-entry-desc">Grilled street corn with cotija cheese, mayo, chili powder, and lime</div></div>
-          <div class="menu-entry-price">$6.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/app27.jpg" alt="Elote" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Elote</div>
+            <div class="menu-card-desc">Grilled street corn with cotija cheese, mayo, chili powder, and lime</div>
+            <div class="menu-card-price">$6.99</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1365,21 +1400,37 @@
         <div class="menu-section-count">4 items · served 2 per order</div>
       </div>
       <div class="menu-items-grid">
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Carne Asada</div><div class="menu-entry-desc">Grilled marinated flank steak, onion, cilantro, salsa verde on corn tortilla</div></div>
-          <div class="menu-entry-price">$13.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/street-tacos1.jpg" alt="Carne Asada" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Carne Asada</div>
+            <div class="menu-card-desc">Grilled marinated flank steak, onion, cilantro, salsa verde on corn tortilla</div>
+            <div class="menu-card-price">$13.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Pollo</div><div class="menu-entry-desc">Seasoned grilled chicken, pico de gallo, avocado cream on flour or corn tortilla</div></div>
-          <div class="menu-entry-price">$12.49</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/street-tacos2.jpg" alt="Pollo Tacos" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Pollo</div>
+            <div class="menu-card-desc">Seasoned grilled chicken, pico de gallo, avocado cream on flour or corn tortilla</div>
+            <div class="menu-card-price">$12.49</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Carnitas</div><div class="menu-entry-desc">Slow-braised pork, pickled red onion, cilantro, salsa roja</div></div>
-          <div class="menu-entry-price">$12.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/street-tacos3.jpg" alt="Carnitas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Carnitas</div>
+            <div class="menu-card-desc">Slow-braised pork, pickled red onion, cilantro, salsa roja</div>
+            <div class="menu-card-price">$12.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Veggie</div><div class="menu-entry-desc">Grilled peppers, black beans, corn, avocado, queso fresco</div></div>
-          <div class="menu-entry-price">$10.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/vegetarian126.jpg" alt="Veggie Taco" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Veggie</div>
+            <div class="menu-card-desc">Grilled peppers, black beans, corn, avocado, queso fresco</div>
+            <div class="menu-card-price">$10.99</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1391,19 +1442,38 @@
         <div class="menu-section-count">3 items</div>
       </div>
       <div class="menu-items-grid">
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Classic Burrito</div><div class="menu-entry-desc">Choice of protein, rice, beans, cheese, sour cream, salsa in flour tortilla</div></div>
-          <div class="menu-entry-price">$13.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/burritos108.jpg" alt="Classic Burrito" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Classic Burrito</div>
+            <div class="menu-card-desc">Choice of protein, rice, beans, cheese, sour cream, salsa in flour tortilla</div>
+            <div class="menu-card-price">$13.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Wet Burrito</div><div class="menu-entry-desc">Classic burrito smothered in red enchilada sauce and melted cheese</div></div>
-          <div class="menu-entry-price">$15.49</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/burritos112.jpg" alt="Wet Burrito" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Wet Burrito</div>
+            <div class="menu-card-desc">Classic burrito smothered in red enchilada sauce and melted cheese</div>
+            <div class="menu-card-price">$15.49</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Burrito Bowl</div><div class="menu-entry-desc">All the burrito flavors over cilantro-lime rice, no tortilla — your way</div></div>
-          <div class="menu-entry-price">$13.49</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/burritos115.jpg" alt="Burrito Bowl" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Burrito Bowl</div>
+            <div class="menu-card-desc">All the burrito flavors over cilantro-lime rice, no tortilla — your way</div>
+            <div class="menu-card-price">$13.49</div>
+          </div>
         </div>
-        <div class="menu-entry" style="background:transparent;border:none;"></div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/lunch14.jpg" alt="Lunch Special" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Lunch Combo</div>
+            <div class="menu-card-desc">Half burrito + rice & beans — the perfect midday meal</div>
+            <div class="menu-card-price">$11.99</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1414,19 +1484,38 @@
         <div class="menu-section-count">3 items · served with rice & beans</div>
       </div>
       <div class="menu-items-grid">
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Cheese Enchiladas</div><div class="menu-entry-desc">Three corn tortillas stuffed with melted cheese, topped with red sauce</div></div>
-          <div class="menu-entry-price">$12.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/enchilada118.jpg" alt="Cheese Enchiladas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Cheese Enchiladas</div>
+            <div class="menu-card-desc">Three corn tortillas stuffed with melted cheese, topped with red sauce</div>
+            <div class="menu-card-price">$12.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Chicken Enchiladas</div><div class="menu-entry-desc">Shredded chicken, green tomatillo sauce, sour cream, cotija cheese</div></div>
-          <div class="menu-entry-price">$14.49</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/chicken89.jpg" alt="Chicken Enchiladas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Chicken Enchiladas</div>
+            <div class="menu-card-desc">Shredded chicken, green tomatillo sauce, sour cream, cotija cheese</div>
+            <div class="menu-card-price">$14.49</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Beef Enchiladas</div><div class="menu-entry-desc">Seasoned ground beef, red mole sauce, melted Oaxacan cheese blend</div></div>
-          <div class="menu-entry-price">$14.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2023/05/139.png" alt="Beef Enchiladas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Beef Enchiladas</div>
+            <div class="menu-card-desc">Seasoned ground beef, red mole sauce, melted Oaxacan cheese blend</div>
+            <div class="menu-card-price">$14.99</div>
+          </div>
         </div>
-        <div class="menu-entry" style="background:transparent;border:none;"></div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/vegetarian128.jpg" alt="Vegetarian" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Veggie Enchiladas</div>
+            <div class="menu-card-desc">Roasted peppers, squash, corn & black beans in green tomatillo sauce</div>
+            <div class="menu-card-price">$13.49</div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -1434,25 +1523,50 @@
     <div class="menu-section">
       <div class="menu-section-head">
         <div class="menu-section-title">Specialties</div>
-        <div class="menu-section-count">3 items</div>
+        <div class="menu-section-count">5 items</div>
       </div>
       <div class="menu-items-grid">
-        <!-- SIGNATURE -->
-        <div class="menu-entry signature-entry">
-          <div>
+        <!-- SIGNATURE — full width -->
+        <div class="menu-card signature-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2023/05/Molcajete.png" alt="Molcajete" loading="lazy" /></div>
+          <div class="menu-card-body">
             <div class="sig-badge">⭐ Chef's Signature</div>
-            <div class="menu-entry-name">Molcajete</div>
-            <div class="menu-entry-desc">A volcanic stone bowl filled with grilled steak, chicken, and shrimp, simmering in rich house ranchera sauce with cactus, jalapeños, onion & queso fresco. Served tableside, still sizzling. An experience, not just a meal.</div>
+            <div class="menu-card-name">Molcajete</div>
+            <div class="menu-card-desc">A volcanic stone bowl filled with grilled steak, chicken, and shrimp, simmering in rich house ranchera sauce with cactus, jalapeños, onion & queso fresco. Served tableside, still sizzling. An experience, not just a meal.</div>
+            <div class="menu-card-price">$28.99</div>
           </div>
-          <div class="menu-entry-price">$28.99</div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Fajitas</div><div class="menu-entry-desc">Sizzling skillet of grilled meat, peppers & onions with tortillas, guac, sour cream, pico</div></div>
-          <div class="menu-entry-price">$18.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/fajitas56.jpg" alt="Fajitas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Fajitas</div>
+            <div class="menu-card-desc">Sizzling skillet of grilled meat, peppers & onions with tortillas, guac, sour cream, pico</div>
+            <div class="menu-card-price">$18.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Chile Relleno</div><div class="menu-entry-desc">Fire-roasted poblano stuffed with cheese, battered and fried, topped with tomato sauce</div></div>
-          <div class="menu-entry-price">$15.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2023/05/PARRILLADA.png" alt="Parrillada" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Parrillada</div>
+            <div class="menu-card-desc">Mixed grill platter — steak, chicken, chorizo & shrimp with sides</div>
+            <div class="menu-card-price">$32.99</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2023/05/CEVICHE.png" alt="Ceviche" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Ceviche</div>
+            <div class="menu-card-desc">Fresh shrimp cured in lime juice, tomato, onion, cilantro & jalapeño, served with tostadas</div>
+            <div class="menu-card-price">$16.99</div>
+          </div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2023/05/POZOLE.png" alt="Pozole" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Pozole</div>
+            <div class="menu-card-desc">Hearty hominy soup with slow-cooked pork, garnished with radish, cabbage, oregano & lime</div>
+            <div class="menu-card-price">$14.99</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1461,24 +1575,40 @@
     <div class="menu-section">
       <div class="menu-section-head">
         <div class="menu-section-title">Drinks</div>
-        <div class="menu-section-count">4 items</div>
+        <div class="menu-section-count">3 items</div>
       </div>
       <div class="menu-items-grid">
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Margaritas</div><div class="menu-entry-desc">Classic, Mango, Strawberry, or Spicy — on the rocks or frozen</div></div>
-          <div class="menu-entry-price">From $9.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/DRINKSmarg.jpg" alt="Margaritas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Margaritas</div>
+            <div class="menu-card-desc">Classic, Mango, Strawberry, or Spicy — on the rocks or frozen, salt or no salt</div>
+            <div class="menu-card-price">From $9.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Horchata</div><div class="menu-entry-desc">Housemade rice milk with cinnamon and vanilla — sweet and refreshing</div></div>
-          <div class="menu-entry-price">$3.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/DRINKSteq.jpg" alt="Tequila" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Cocktails & Spirits</div>
+            <div class="menu-card-desc">Premium tequilas, mezcal, and house-crafted cocktails — ask your server</div>
+            <div class="menu-card-price">From $8.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Jarritos</div><div class="menu-entry-desc">Authentic Mexican soda — Tamarind, Mandarin, Strawberry, or Jamaica</div></div>
-          <div class="menu-entry-price">$2.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/DRINKSCan.jpg" alt="Canned Drinks" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Beer & Sodas</div>
+            <div class="menu-card-desc">Modelo, Corona, Dos Equis · Jarritos, Horchata, Mexican Coke</div>
+            <div class="menu-card-price">From $2.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Beer</div><div class="menu-entry-desc">Modelo, Corona, Dos Equis, Pacifico — bottled or draft, ask your server</div></div>
-          <div class="menu-entry-price">From $4.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/seafood101.jpg" alt="Agua Fresca" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Seafood Specials</div>
+            <div class="menu-card-desc">Fresh seafood dishes available daily — ask your server for today's catch</div>
+            <div class="menu-card-price">Market Price</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1490,19 +1620,38 @@
         <div class="menu-section-count">3 items</div>
       </div>
       <div class="menu-items-grid">
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Churros</div><div class="menu-entry-desc">Golden fried dough with cinnamon sugar, served with chocolate dipping sauce</div></div>
-          <div class="menu-entry-price">$6.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/deserts1.jpg" alt="Churros" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Churros</div>
+            <div class="menu-card-desc">Golden fried dough with cinnamon sugar, served with chocolate dipping sauce</div>
+            <div class="menu-card-price">$6.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Flan</div><div class="menu-entry-desc">Classic Mexican custard with rich caramel sauce and a pinch of vanilla</div></div>
-          <div class="menu-entry-price">$5.99</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/deserts2.jpg" alt="Flan" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Flan</div>
+            <div class="menu-card-desc">Classic Mexican custard with rich caramel sauce and a pinch of vanilla</div>
+            <div class="menu-card-price">$5.99</div>
+          </div>
         </div>
-        <div class="menu-entry">
-          <div><div class="menu-entry-name">Sopapillas</div><div class="menu-entry-desc">Pillowy fried pastry drizzled with honey and topped with powdered sugar</div></div>
-          <div class="menu-entry-price">$5.49</div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/alacarte172.jpg" alt="Sopapillas" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Sopapillas</div>
+            <div class="menu-card-desc">Pillowy fried pastry drizzled with honey and topped with powdered sugar</div>
+            <div class="menu-card-price">$5.49</div>
+          </div>
         </div>
-        <div class="menu-entry" style="background:transparent;border:none;"></div>
+        <div class="menu-card">
+          <div class="menu-card-photo"><img src="https://molcajetemexrestaurant.com/wp-content/uploads/2022/02/app32.jpg" alt="A la Carte" loading="lazy" /></div>
+          <div class="menu-card-body">
+            <div class="menu-card-name">A la Carte Sides</div>
+            <div class="menu-card-desc">Rice, refried beans, extra tortillas, sour cream, jalapeños — add to any order</div>
+            <div class="menu-card-price">From $2.49</div>
+          </div>
+        </div>
       </div>
     </div>
 
